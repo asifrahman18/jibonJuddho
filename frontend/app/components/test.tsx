@@ -7,7 +7,7 @@ import animationData from '../assets/animation1.json'
 
 function Test() {
   return (
-    <div className=''>
+    <div className='mt-10'>
       <Lottie style={{ height: '300px', width: '300px' }} animationData={animationData} />
     </div>
   )
