@@ -6,6 +6,8 @@ import { Menu } from "lucide-react"
 import { AiOutlineHome, AiOutlineQuestionCircle } from "react-icons/ai"
 import { ImOffice } from "react-icons/im";
 import { BsStars, BsTelephone } from "react-icons/bs"
+import { ModeToggle } from "./theme-toggle"
+
 
 export default function Navbar() {
   const [state, setState] = React.useState(false)
@@ -13,11 +15,11 @@ export default function Navbar() {
   const menus = [
     { icon: <AiOutlineQuestionCircle />, title: "About", path: "/" },
     { icon: <BsStars />, title: "Explore", path: "/" },
-    { icon: <BsTelephone />, title: "Login", path: "/" },
+    { icon: <BsTelephone />, title: "Login", path: "/../pages/sign-in" },
   ]
 
   return (
-    <nav className="bg-opacity/50 fixed top-0 z-10 w-full border-b pt-2 backdrop-blur-md md:border-0 bg-purple-100">
+    <nav className="bg-opacity/50 fixed top-0 z-10 w-full border-b pt-2 backdrop-blur-md md:border-0">
       <div className="mx-auto max-w-screen-xl px-4 md:flex md:items-center md:justify-between">
         <div className="flex items-center justify-between py-3 md:ml-5 md:block md:py-5  xl:-ml-10">
           <Link href="/">
@@ -49,7 +51,7 @@ export default function Navbar() {
                 key={idx}
                 className={`font-nunito hover:text-black ${
                   state
-                    ? "text-white md:text-[#8F9BB7] lg:text-[#8F9BB7]"
+                    ? "text-primary md:text-[#8F9BB7] lg:text-[#8F9BB7]"
                     : "text-[#8F9BB7]"
                 }`}
               >
@@ -67,6 +69,7 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
+        <ModeToggle/>
       </div>
     </nav>
   )
