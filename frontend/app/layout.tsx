@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Test from './components/test'
-import NavBar from './components/navBar'
+import NavBar from './navBar'
 import {Container} from '@radix-ui/themes'
 import { ThemeProvider } from '@/components/ui/theme'
 
@@ -29,7 +28,6 @@ export default function RootLayout({
         <NavBar/>
         <main className='p-5'>
           <Container>
-            <Test/>
           {children}
           </Container>
           </main>
