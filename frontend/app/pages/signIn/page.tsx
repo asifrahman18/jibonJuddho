@@ -32,6 +32,7 @@ const signIn = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <div className="fixed bottom-auto left-0 right-auto top-0 h-[600px] w-[600px] -translate-x-[30%] translate-y-[20%] rounded-full dark:bg-[#31126bb9] opacity-50 blur-[80px] md:z-[-1] lg:z-[-1] z-[-5]" />
     </motion.div>
   );
 };
