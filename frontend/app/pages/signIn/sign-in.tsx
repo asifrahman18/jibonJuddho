@@ -35,9 +35,7 @@ const SignInPage = () => {
       <Separator className="my-6" />
       <CardTitle>Or Sign In with</CardTitle>
       <div className="flex justify-between my-6">
-        <Button variant={"outline"}>Google</Button>
-        <Button variant={"outline"}>Discord</Button>
-        <Button variant={"outline"}>GitHub</Button>
+        <Button className="w-full" variant={"outline"}>Google</Button>
       </div>
       </CardContent>
       <CardFooter>
