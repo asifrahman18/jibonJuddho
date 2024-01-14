@@ -1,9 +1,9 @@
+import { ThemeProvider } from '@/components/ui/theme'
+import { Container } from '@radix-ui/themes'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from './navBar'
-import {Container} from '@radix-ui/themes'
-import { ThemeProvider } from '@/components/ui/theme'
 
 
 const inter = Inter({ subsets: ['latin'] })
