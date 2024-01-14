@@ -1,15 +1,25 @@
 from rest_framework import viewsets
 from api.models import Job
-from api.serializers import JobSerializer
+from .serializers import JobSerializer, SignUpSerializer, UserSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from django.shortcuts import get_object_or_404
+from django.db.models import Count, Max, Min, Avg
 
-class JobsViewSet(viewsets.ModelViewSet):
-    queryset = Job.objects.all()
-    serializer_class = JobSerializer
+from rest_framework import status
 
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+
+from .filters import JobsFilter
+
+class AllJobsView(APIView):
+    def get(self, request, format=None):
+        filterset = JobsFilter(request.GET, queryset=Job.objects.all().order_by('id'))
+        serializer = JobSerializer(filterset.qs, many=True)
+        return Response(serializer.data)
 
 class JobDetailView(APIView):
 
@@ -79,6 +89,54 @@ class UpdateJobView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TopicStatView(APIView):
+    def get(self, request, topic, format=None):
+        args = {'title__icontains': topic}
+        jobs = Job.objects.filter(**args)
+
+        if len(jobs) == 0:
+            return Response({'message': 'No jobs found!'}, status=status.HTTP_404_NOT_FOUND)
+
+        stats = jobs.aggregate(
+            count=Count('id'),
+            avg_salary=Avg('salary'),
+            min_salary=Min('salary'),
+            max_salary=Max('salary'),
+        )
+
+        return Response(stats)
+
+
+
+class DeleteJobView(APIView):
+    def delete(self, request, pk, format=None):
+        job = get_object_or_404(Job, pk=pk)
+        job.delete()
+        return Response({'message': 'Job deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class RegisterView(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        user_serializer = SignUpSerializer(data=data)
+
+        if user_serializer.is_valid():
+            if not User.objects.filter(email=data['email']).exists():
+                user = User.objects.create(
+                    first_name=data['first_name'],
+                    last_name=data['last_name'],
+                    email=data['email'],
+                    password=make_password(data['password']),
+                    username=data['email']
+                )
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                return Response({'message': 'User with this email already exists!'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 # @api_view(['PUT'])
