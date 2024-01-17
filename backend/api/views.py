@@ -15,6 +15,8 @@ from django.contrib.auth.hashers import make_password
 
 from .filters import JobsFilter
 
+from rest_framework.permissions import IsAuthenticated
+
 class AllJobsView(APIView):
     def get(self, request, format=None):
         filterset = JobsFilter(request.GET, queryset=Job.objects.all().order_by('id'))
@@ -138,24 +140,9 @@ class RegisterView(APIView):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
 
-# @api_view(['PUT'])
-# def UpdateJobView(request, pk):
-    
-#     job = Job.objects.get(id=pk)
-    
-#     job.title = request.data['title']
-#     job.description = request.data['description']
-#     job.email = request.data['email']
-#     job.location = request.data['location']
-#     job.jobType = request.data['jobType']
-#     job.qualification = request.data['qualification']
-#     job.salary = request.data['salary']
-#     job.openings = request.data['openings']
-#     job.expiresAt = request.data['expiresAt']
-    
-#     job.save()
-    
-#     serializer = JobSerializer(job, many=False)
-    
-#     return Response(serializer.data)
+    def get(self, request, format=None):
+        user_serializer = UserSerializer(request.user)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
