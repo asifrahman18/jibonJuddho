@@ -1,13 +1,12 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
 import { Menu } from "lucide-react"
-import { AiOutlineHome, AiOutlineQuestionCircle } from "react-icons/ai"
-import { ImOffice } from "react-icons/im";
+import Link from "next/link"
+import * as React from "react"
+import { AiOutlineQuestionCircle } from "react-icons/ai"
 import { BsStars, BsTelephone } from "react-icons/bs"
+import { ImOffice } from "react-icons/im"
 import { ModeToggle } from "./components/theme-toggle"
-import {motion} from "framer-motion"
 
 
 export default function Navbar() {
@@ -20,7 +19,7 @@ export default function Navbar() {
   ]
 
   return (
-    <motion.nav className="bg-opacity/50 fixed top-0 z-10 w-full border-b pt-2 backdrop-blur-md md:border-0">
+    <nav className="bg-opacity/50 fixed top-0 z-10 w-full border-b pt-2 backdrop-blur-md md:border-0">
       <div className="mx-auto max-w-screen-xl px-4 md:flex md:items-center md:justify-between">
         <div className="flex items-center justify-between py-3 md:ml-5 md:block md:py-5  xl:-ml-10">
           <Link href="/">
@@ -72,6 +71,6 @@ export default function Navbar() {
         </div>
         <ModeToggle/>
       </div>
-    </motion.nav>
+    </nav>
   )
 }
