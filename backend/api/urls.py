@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from api.views import AllJobsView, AddJobView, UpdateJobView, JobDetailView, DeleteJobView, TopicStatView, RegisterView
+from api.views import AllJobsView, AddJobView, UpdateJobView, JobDetailView, DeleteJobView, TopicStatView, RegisterView, CurrentUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
 
 router = DefaultRouter()
@@ -31,8 +31,40 @@ urlpatterns = [
     path('user/register/', RegisterView.as_view(), name='register'),
     
     
+    #see logged in user informations
+    path('user/me/', CurrentUserView.as_view(), name='current_user'),
+    
+    
+    
     #token authentication using username and password
     path('user/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('user/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('user/token/verify/', TokenVerifyView.as_view(), name='token_refresh'),
+    
+    
+    
+    
+    
+    
+    
+    #todo
+    
+    # #create company from user; ID number of user has to be passed
+    # path('companies/register_company/', CompanyCreateView.as_view(), name='register_company'),
+    
+    
+    
+    # #list all companies
+    # path('companies/', AllCompaniesView.as_view(), name='all_companies'),
+    
+    
+    
+    # #view all company of that user (todo)
+    # path('user/me/company/', CompanyDetailView.as_view(), name='register_company'),
+    
+    
+    # #add jobs from a company
+    # path('company/<int:company_id>/add-job/', JobCreateView.as_view(), name='add_job'),
+    
+
 ]
