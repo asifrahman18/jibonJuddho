@@ -60,7 +60,7 @@ class Job(models.Model):
     createdAt= models.DateTimeField(auto_now_add=True,null=True)
     expiresAt= models.DateTimeField(expireDate,null=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, related_name='jobs')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='user_jobs')
+    #user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='user_jobs')
     
     def __str__(self):
         return f"{self.title}"
