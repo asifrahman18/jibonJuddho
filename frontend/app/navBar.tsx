@@ -14,7 +14,7 @@ export default function Navbar() {
 
   const menus = [
     { icon: <AiOutlineQuestionCircle />, title: "About", path: "/" },
-    { icon: <BsStars />, title: "Explore", path: "/" },
+    { icon: <BsStars />, title: "Explore", path: "/pages/explore" },
     { icon: <BsTelephone />, title: "Login", path: "/pages/signIn" },
   ]
 
