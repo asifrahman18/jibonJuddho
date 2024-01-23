@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { getJobs } from "../../api/getJobs/route";
 
+import JobDetail from "./jobDetail";
+
 import {
     Table,
     TableBody,
@@ -27,6 +29,7 @@ const Explore = () => {
     fetchData();
   }, []);
 
+
   const fetchData = async () => {
     try {
       const jobData: Job[] = await getJobs();
@@ -37,8 +40,8 @@ const Explore = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <main>
+    <div className="flex h-screen pt-11">
+      <div className="flex-1 p-4">
         <>
           {jobs.length === 0 ? (
             <p>No Job is currently registered.</p>
@@ -47,15 +50,13 @@ const Explore = () => {
                 <TableCaption>List of Jobs</TableCaption>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="border p-2">ID</TableHead>
                   <TableHead className="border p-2">Name</TableHead>
                   <TableHead className="border p-2">Description</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {jobs.map((job) => (
-                  <TableRow key={job.id}>
-                    <TableCell className="border p-2">{job.id}</TableCell>
+                  <TableRow key={job.id} className="cursor-pointer">
                     <TableCell className="border p-2">{job.title}</TableCell>
                     <TableCell className="border p-2">{job.description}</TableCell>
                   </TableRow>
@@ -64,7 +65,10 @@ const Explore = () => {
             </Table>
           )}
         </>
-      </main>
+      </div>
+      <div className="flex-1 p-4">
+  <JobDetail/>
+      </div>
     </div>
   );
 };
