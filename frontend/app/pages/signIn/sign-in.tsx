@@ -1,20 +1,46 @@
-import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+
+import { useState } from "react";
+import { loginUser } from "../../api/authentication/route";
+import { useRouter } from 'next/navigation';
+
+import { useToast } from "@/components/ui/use-toast"
+
 
 const SignInPage = () => {
-  return (
+  const { toast } = useToast()
 
+  const router = useRouter();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await loginUser(username, password);
+      console.log("Login successful:", response);
+      router.push('/pages/user/');
+      // After logging in user
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "Please check your credentials",
+      })
+    }
+  };
+  return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
@@ -24,25 +50,39 @@ const SignInPage = () => {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Email" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="Email"
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="Password" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
         </form>
-      <Separator className="my-6" />
-      <CardTitle>Or Sign In with</CardTitle>
-      <div className="flex justify-between my-6">
-        <Button className="w-full" variant={"outline"}>Google</Button>
-      </div>
+        <Separator className="my-6" />
+        <CardTitle>Or Sign In with</CardTitle>
+        <div className="flex justify-between my-6">
+          <Button className="w-full" variant={"outline"}>
+            Google
+          </Button>
+        </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Sign In</Button>
+        <Button className="w-full" onClick={handleLogin}>
+          Sign In
+        </Button>
       </CardFooter>
     </Card>
-  )
+  );
 };
 
 export default SignInPage;

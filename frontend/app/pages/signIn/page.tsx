@@ -4,11 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RegisterPage from "./register";
 import SignInPage from "./sign-in";
 
-
 const signIn = () => {
   return (
-    <div className=""
-    >
+    <div>
       <div className="grid place-items-center h-screen">
         <Tabs defaultValue="signIn" className="w-[400px]">
           <TabsList className="items-center flex">
@@ -20,10 +18,10 @@ const signIn = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent className="grid place-items-center" value="signIn">
-            <SignInPage/>
+            <SignInPage />
           </TabsContent>
           <TabsContent className="grid place-items-center" value="register">
-            <RegisterPage/>
+            <RegisterPage />
           </TabsContent>
         </Tabs>
       </div>
