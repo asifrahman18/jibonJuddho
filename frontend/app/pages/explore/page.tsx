@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { getJobs } from "../../api/getJobs/route";
@@ -6,36 +6,46 @@ import { getJobs } from "../../api/getJobs/route";
 import JobDetail from "./jobDetail";
 
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-  
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface Job {
   id: number;
   title: string;
   description: string;
+  email: string;
+  location: string;
+  jobType: string;
+  salary: number;
+  openings: number;
+  qualification: string;
+  company: string;
 }
 
 const Explore = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
+
+  const handleJobClick = (jobId: number) => {
+    setSelectedJobId(jobId);
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
-
 
   const fetchData = async () => {
     try {
       const jobData: Job[] = await getJobs();
       setJobs(jobData);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -47,18 +57,24 @@ const Explore = () => {
             <p>No Job is currently registered.</p>
           ) : (
             <Table className="border-collapse border w-full">
-                <TableCaption>List of Jobs</TableCaption>
+              <TableCaption>List of Jobs</TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead className="border p-2">Name</TableHead>
-                  <TableHead className="border p-2">Description</TableHead>
+                  <TableHead className="border p-2">Type</TableHead>
+                  <TableHead className="border p-2">Location</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {jobs.map((job) => (
-                  <TableRow key={job.id} className="cursor-pointer">
+                  <TableRow
+                    key={job.id}
+                    className="cursor-pointer"
+                    onClick={() => handleJobClick(job.id)}
+                  >
                     <TableCell className="border p-2">{job.title}</TableCell>
-                    <TableCell className="border p-2">{job.description}</TableCell>
+                    <TableCell className="border p-2">{job.jobType}</TableCell>
+                    <TableCell className="border p-2">{job.location}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -67,7 +83,7 @@ const Explore = () => {
         </>
       </div>
       <div className="flex-1 p-4">
-  <JobDetail/>
+        <JobDetail jobId={selectedJobId} />
       </div>
     </div>
   );

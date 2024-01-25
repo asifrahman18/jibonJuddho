@@ -7,8 +7,8 @@ import SignInPage from "./sign-in";
 const signIn = () => {
   return (
     <div>
-      <div className="grid place-items-center h-screen">
-        <Tabs defaultValue="signIn" className="w-[400px]">
+      <div className="grid place-items-center min-h-screen px-4">
+        <Tabs defaultValue="signIn" className="w-full lg:w-[400px]">
           <TabsList className="items-center flex">
             <TabsTrigger className="w-full" value="signIn">
               Sign in

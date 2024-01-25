@@ -1,12 +1,12 @@
 import { ThemeProvider } from "@/components/ui/theme";
+import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/context/AuthContext";
 import { Container } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Footer from "./components/footer";
 import "./globals.css";
 import NavBar from "./navBar";
-import Footer from "./components/footer";
-import Providers from "./Providers";
-import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Providers>
+    <AuthProvider>
       <html lang="en">
         <body>
           <ThemeProvider
@@ -31,7 +31,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NavBar />
-            <main className="p-24">
+            <main className="pt-6">
               <Container>{children}</Container>
             </main>
             <Toaster />
@@ -39,6 +39,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </Providers>
+    </AuthProvider>
   );
 }
