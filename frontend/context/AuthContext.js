@@ -1,11 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
-import { loginUser, checkAuthentication, logoutUser } from "../app/api/auth/route";
+import {
+  checkAuthentication,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "../app/api/auth/route";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -31,7 +39,34 @@ export const AuthProvider = ({ children }) => {
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: "Please check your credentials",
+        description: error.message,
+      });
+    }
+  };
+
+  const register = async (firstName, lastName, username, password) => {
+    //console.log(firstName, lastName, username, password);
+    try {
+     // console.log(firstName, lastName, username, password);
+      const response = await registerUser(firstName, lastName, username, password);
+      console.log("Register successful:", response);
+
+      if (response.error){
+        toast({
+          variant: "destructive",
+          title: "Registration Failed",
+          description: response.data.error,
+        });
+      }
+      else{
+        login(username, password)
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast({
+        variant: "destructive",
+        title: "Registration Failed",
+        description: error.message,
       });
     }
   };
@@ -58,12 +93,12 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       const response = await logoutUser();
-      console.log("User loaded:", response);
+      console.log("User logged out:", response);
 
-      if (response) {
+      if (!response) {
         setAuthenticated(false);
         setUser(null);
-        router.push("/");
+        router.push("/pages/signIn/");
       }
 
       console.log("Logout successful:", response);
@@ -81,6 +116,7 @@ export const AuthProvider = ({ children }) => {
         error,
         login,
         logout,
+        register,
       }}
     >
       {children}

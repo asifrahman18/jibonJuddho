@@ -1,24 +1,41 @@
 //'use client'
 import axios from "axios";
 
-import { setTokenCookie, getTokenCookie, removeTokenCookie } from './cookie';
+import { setTokenCookie, getTokenCookie, removeTokenCookie } from "./cookie";
 
 const BASE_URL = "http://127.0.0.1:8000/api";
 
-
 export const loginUser = async (username, password) => {
   try {
-    const response = await axios.post(`${BASE_URL}/user/token/`, {
-      username,
-      password,
-    },
-    {
-      headers: 'application/json',
-    });
+    const response = await axios.post(
+      `${BASE_URL}/user/token/`,
+      {
+        username,
+        password,
+      },
+      {
+        headers: "application/json",
+      }
+    );
     const token = response.data.access;
-    console.log('token:', token);
+    console.log("token:", token);
     setTokenCookie(token);
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const registerUser = async (firstName, lastName, username, password) => {
+
+  try {
+    const response = await axios.post(`${BASE_URL}/user/register/`, {
+      first_name: firstName,
+      last_name: lastName,
+      email: username,
+      password,
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -34,7 +51,7 @@ export async function logoutUser() {
 export const checkAuthentication = async () => {
   const token = getTokenCookie();
 
-  if(!token){
+  if (!token) {
     console.error("Login first", error);
   }
 
