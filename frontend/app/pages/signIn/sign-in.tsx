@@ -10,15 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
-import { useToast } from "@/components/ui/use-toast";
 
 import { AuthContext } from "../../../context/AuthContext";
 
 const SignInPage = () => {
-  const { toast } = useToast();
+
 
   const router = useRouter();
 
