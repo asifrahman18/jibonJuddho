@@ -10,3 +10,10 @@ export async function getJobs() {
     throw error;
   }
 }
+
+
+
+export const getJobDetail = async (id) => {
+  const response = await axios.get(`${BASE_URL}/job/${id}/`);
+  return response.data;
+};

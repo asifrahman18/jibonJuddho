@@ -1,17 +1,22 @@
+//'use client'
 import axios from "axios";
-import { setTokenCookie, getTokenCookie, removeTokenCookie } from '../../services/cookieService';
-import Cookies from 'cookie'
+
+import { setTokenCookie, getTokenCookie, removeTokenCookie } from './cookie';
 
 const BASE_URL = "http://127.0.0.1:8000/api";
 
-export const loginUser = async (username: string, password: string) => {
+
+export const loginUser = async (username, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/user/token/`, {
       username,
       password,
+    },
+    {
+      headers: 'application/json',
     });
-    const token = response.data.access_token;
-    
+    const token = response.data.access;
+    console.log('token:', token);
     setTokenCookie(token);
 
     return response.data;
@@ -20,10 +25,18 @@ export const loginUser = async (username: string, password: string) => {
   }
 };
 
-export async function logoutUser() {}
+export async function logoutUser() {
+  const token = removeTokenCookie();
+
+  return token;
+}
 
 export const checkAuthentication = async () => {
   const token = getTokenCookie();
+
+  if(!token){
+    console.error("Login first", error);
+  }
 
   if (token) {
     try {
@@ -35,7 +48,7 @@ export const checkAuthentication = async () => {
 
       return response.data;
     } catch (error) {
-      console.error('Error checking authentication:', error);
+      console.error("Error checking authentication:", error);
       return null;
     }
   }

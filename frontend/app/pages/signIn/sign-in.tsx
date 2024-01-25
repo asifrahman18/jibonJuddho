@@ -10,36 +10,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-import { useState } from "react";
-import { loginUser } from "../../api/authentication/route";
-import { useRouter } from 'next/navigation';
+import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 
+import { AuthContext } from "../../../context/AuthContext";
 
 const SignInPage = () => {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const { loading, error, isAuthenticated, login } = useContext(AuthContext);
+
+
   const handleLogin = async () => {
-    try {
-      const response = await loginUser(username, password);
-      console.log("Login successful:", response);
-      router.push('/pages/user/');
-      // After logging in user
-    } catch (error) {
-      console.error("Login failed:", error);
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: "Please check your credentials",
-      })
-    }
+    login(username, password)
   };
+
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -55,6 +48,7 @@ const SignInPage = () => {
                 type="email"
                 placeholder="Email"
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -64,6 +58,7 @@ const SignInPage = () => {
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
           </div>
