@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getJobs } from "../../api/getJobs/route";
+import { getJobs } from "../api/getJobs/route";
 
 import JobDetail from "./jobDetail";
 

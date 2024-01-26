@@ -34,7 +34,7 @@ export default function Navbar() {
 
   const menus = [
     { icon: <AiOutlineQuestionCircle />, title: "About", path: "/" },
-    { icon: <BsStars />, title: "Explore", path: "/pages/explore" },
+    { icon: <BsStars />, title: "Explore", path: "/explore" },
     // { icon: <BsTelephone />, title: "Login", path: "/pages/signIn" },
   ];
 
@@ -84,8 +84,10 @@ export default function Navbar() {
         <div className="flex flex-row items-center gap-2">
           <div>
             {isAuthenticated && (
+              <div>
+                <Button>Add your company</Button>
               <DropdownMenu>
-                <DropdownMenuTrigger className="px-2">
+                <DropdownMenuTrigger className="px-2 hidden md:inline">
                   <Avatar>
                     <AvatarImage />
                     <AvatarFallback>A</AvatarFallback>
@@ -95,21 +97,18 @@ export default function Navbar() {
                   <DropdownMenuLabel className="text-xl">
                     {user.first_name}
                   </DropdownMenuLabel>
-                  <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
-                  <DropdownMenuItem>
-                    <Button
-                      onClick={logoutHandler}
-                      className="text-[#ff4545]"
-                    >
+                  <DropdownMenuItem>{user.email}</DropdownMenuItem>
+                  <DropdownMenuLabel  onClick={logoutHandler}
+                      className="text-[#ff4545] hover:cursor-pointer">
                       Sign Out
-                    </Button>
-                  </DropdownMenuItem>
+                  </DropdownMenuLabel>
                 </DropdownMenuContent>
               </DropdownMenu>
+              </div>
             )}
             {!isAuthenticated && (
               <Button>
-                <Link className="px-2" href="/pages/signIn">
+                <Link className="px-2" href="/signIn">
                   Sign In
                 </Link>
               </Button>

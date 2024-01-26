@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/explore/page.jsx", "context/AuthContext.js", "context/AuthContext.js", "app/api/getJobs/route.js", "app/api/auth/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/explore/page.jsx", "context/AuthContext.js", "context/AuthContext.js", "app/api/getJobs/route.js", "app/api/auth/route.js"],
   "exclude": ["node_modules"]
 }
