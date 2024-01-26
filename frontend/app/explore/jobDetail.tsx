@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { getJobDetail } from "../../api/getJobs/route";
+import { getJobDetail } from "../api/getJobs/route";
 import moment from 'moment'
 
 interface JobDetailProps {

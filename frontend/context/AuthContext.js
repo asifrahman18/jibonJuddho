@@ -80,10 +80,9 @@ export const AuthProvider = ({ children }) => {
       if (response.id) {
         setAuthenticated(true);
         setLoading(false);
-        router.push("/pages/user/");
         setUser(response);
+        router.push("/user");
       }
-
       console.log("Login successful:", response);
     } catch (error) {
       console.error("load failed:", error);
@@ -98,7 +97,7 @@ export const AuthProvider = ({ children }) => {
       if (!response) {
         setAuthenticated(false);
         setUser(null);
-        router.push("/pages/signIn/");
+        router.push("/signIn/");
       }
 
       console.log("Logout successful:", response);

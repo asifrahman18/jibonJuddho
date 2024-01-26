@@ -14,17 +14,14 @@ import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const SignInPage = () => {
-
-
-  const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, error, isAuthenticated, login } = useContext(AuthContext);
+  const {login } = useContext(AuthContext);
 
 
   const handleLogin = async () => {
