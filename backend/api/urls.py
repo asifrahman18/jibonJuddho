@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from api.views import AllJobsView, UpdateJobView, JobDetailView, DeleteJobView, TopicStatView, RegisterView, CurrentUserView, CompanyCreateView, AllCompaniesView, CompanyDetailView, JobCreateView
+from api.views import AllJobsView, UpdateJobView, JobDetailView, DeleteJobView, TopicStatView, RegisterView, CurrentUserView, CompanyCreateView, AllCompaniesView, CompanyDetailView, JobCreateView, UserCompaniesView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenVerifyView, TokenRefreshView
 
 router = DefaultRouter()
@@ -51,8 +51,12 @@ urlpatterns = [
     path('companies/', AllCompaniesView.as_view(), name='all_companies'),
     
     
-    #view all company of that user (need some attention: authorized users can see any company details)
-    path('user/me/company/<int:pk>', CompanyDetailView.as_view(), name='register_company'),
+    #companies of a specific user
+    path('company/<int:pk>/', UserCompaniesView.as_view(), name='user_companies'),
+    
+    
+    #view company details (need some attention: authorized users can see any company details)
+    path('user/company/<int:pk>/', CompanyDetailView.as_view(), name='register_company'),
     
     
     
