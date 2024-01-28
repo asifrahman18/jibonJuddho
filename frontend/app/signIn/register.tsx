@@ -26,7 +26,7 @@ const RegisterPage = () => {
   const handleRegister = async () => {
 
     if(ConfPassword === password){
-      console.log(firstName, lastName, username, password);
+      //console.log(firstName, lastName, username, password);
       register(firstName, lastName, username, password);
     }
     else{

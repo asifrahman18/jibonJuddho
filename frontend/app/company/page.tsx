@@ -6,6 +6,14 @@ import { getCompany } from "../api/company/route";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import AddJobs from "./contents/addJobForm";
+import { EditPanel } from "./contents/components/editPanel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 interface Company {
   id: number;
   name: string;
@@ -58,24 +66,40 @@ const CompanyPage = () => {
           {isCompany && (
             <div>
               <p className="my-2">Your Registered Company</p>
-            <Table>
-              <TableBody>
+              <Accordion type="single" collapsible className="w-full">
                 {company.map((comp) => (
-                  <TableRow key={comp.id} className="cursor-pointer" onClick={() => handleAddClick(comp.id, comp.name)}>
-                    <TableCell className="border p-2">{comp.id}</TableCell>
-                    <TableCell className="border p-2">{comp.name}</TableCell>
-                    <TableCell className="border p-2">
-                      {comp.description}
-                    </TableCell>
-                    <TableCell className="border p-2">
-                      {comp.location}
-                    </TableCell>
-                    <TableCell className="border p-2">{comp.phone}</TableCell>
-                    <TableCell className="border p-2">{comp.email}</TableCell>
-                  </TableRow>
+                  <AccordionItem
+                    value={comp.id.toString()}
+                    key={comp.id}
+                    className="cursor-pointer"
+                  >
+                    <AccordionTrigger className="p-2">
+                      {comp.name}
+                    </AccordionTrigger>
+                    <AccordionContent className="p-2">
+                      Location: {comp.location}
+                    </AccordionContent>
+                    <AccordionContent className="p-2">
+                      Phone: {comp.phone}
+                    </AccordionContent>
+                    <AccordionContent className="p-2">
+                      Email: {comp.email}
+                    </AccordionContent>
+                    <AccordionContent className="p-2">Jobs: </AccordionContent>
+                    <AccordionContent className="p-2">
+                      <div className="flex gap-6">
+                        <Button variant="outline"
+                          onClick={() => handleAddClick(comp.id, comp.name)}
+                        >
+                          Add Jobs
+                        </Button>
+                        <Button variant="outline">View Jobs</Button>
+                        <EditPanel />
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </TableBody>
-            </Table>
+              </Accordion>
             </div>
           )}
           {!isCompany && <p>No Companies Registered</p>}

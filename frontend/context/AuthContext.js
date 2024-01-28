@@ -30,9 +30,9 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await loginUser(username, password);
-      console.log('Response:',response);
+      console.log("Response:", response);
       await loadUser();
-      router.push("/user");
+      // router.push("/user");
     } catch (error) {
       console.error("Login failed:", error);
       toast({
@@ -53,17 +53,23 @@ export const AuthProvider = ({ children }) => {
         setAuthenticated(true);
         setLoading(false);
         setUser(response);
-      }
-      console.log("Login successful:", response);
+        console.log("Login successful:", response);
+        router.push("/user");
+      } else
+        toast({
+          variant: "destructive",
+          title: "Login Failed",
+          description: error.message,
+        });
     } catch (error) {
       console.error("load failed:", error);
     }
   };
 
   const register = async (firstName, lastName, username, password) => {
-    //console.log(firstName, lastName, username, password);
+    console.log(firstName, lastName, username, password);
     try {
-      // console.log(firstName, lastName, username, password);
+       console.log(firstName, lastName, username, password);
       const response = await registerUser(
         firstName,
         lastName,
