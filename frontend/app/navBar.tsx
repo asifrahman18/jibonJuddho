@@ -85,7 +85,6 @@ export default function Navbar() {
           <div>
             {isAuthenticated && (
               <div>
-                <Button>Add your company</Button>
               <DropdownMenu>
                 <DropdownMenuTrigger className="px-2 hidden md:inline">
                   <Avatar>
@@ -97,6 +96,7 @@ export default function Navbar() {
                   <DropdownMenuLabel className="text-xl">
                     {user.first_name}
                   </DropdownMenuLabel>
+                  <DropdownMenuItem><Link href='/user'>Dashboard</Link></DropdownMenuItem>
                   <DropdownMenuItem>{user.email}</DropdownMenuItem>
                   <DropdownMenuLabel  onClick={logoutHandler}
                       className="text-[#ff4545] hover:cursor-pointer">

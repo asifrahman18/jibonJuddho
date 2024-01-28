@@ -133,6 +133,14 @@ class AllCompaniesView(APIView):
         return Response(serializer.data)
 
 
+class UserCompaniesView(APIView):
+    def get(self, request, pk, format=None):
+        user = get_object_or_404(User, id=pk)
+        user_companies = Company.objects.filter(user=user).order_by('id')
+        serializer = CompanySerializer(user_companies, many=True)
+        return Response(serializer.data)
+
+
 
 class CompanyDetailView(APIView):
     permission_classes = [IsAuthenticated]

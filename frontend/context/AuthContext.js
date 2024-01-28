@@ -30,42 +30,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await loginUser(username, password);
-      loadUser();
-      console.log("Login successful:", response);
-      setAuthenticated(true);
-      //router.push("/pages/user/");
+      console.log('Response:',response);
+      await loadUser();
+      router.push("/user");
     } catch (error) {
       console.error("Login failed:", error);
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: error.message,
-      });
-    }
-  };
-
-  const register = async (firstName, lastName, username, password) => {
-    //console.log(firstName, lastName, username, password);
-    try {
-     // console.log(firstName, lastName, username, password);
-      const response = await registerUser(firstName, lastName, username, password);
-      console.log("Register successful:", response);
-
-      if (response.error){
-        toast({
-          variant: "destructive",
-          title: "Registration Failed",
-          description: response.data.error,
-        });
-      }
-      else{
-        login(username, password)
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
         description: error.message,
       });
     }
@@ -81,7 +53,6 @@ export const AuthProvider = ({ children }) => {
         setAuthenticated(true);
         setLoading(false);
         setUser(response);
-        router.push("/user");
       }
       console.log("Login successful:", response);
     } catch (error) {
@@ -89,10 +60,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (firstName, lastName, username, password) => {
+    //console.log(firstName, lastName, username, password);
+    try {
+      // console.log(firstName, lastName, username, password);
+      const response = await registerUser(
+        firstName,
+        lastName,
+        username,
+        password
+      );
+      console.log("Register successful:", response);
+
+      if (response.error) {
+        toast({
+          variant: "destructive",
+          title: "Registration Failed",
+          description: response.data.error,
+        });
+      } else {
+        login(username, password);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast({
+        variant: "destructive",
+        title: "Registration Failed",
+        description: error.message,
+      });
+    }
+  };
+
   const logout = async () => {
     try {
       const response = await logoutUser();
       console.log("User logged out:", response);
+      setUser(null);
+      window.localStorage.removeItem("user");
 
       if (!response) {
         setAuthenticated(false);

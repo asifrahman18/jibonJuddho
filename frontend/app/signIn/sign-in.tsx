@@ -10,24 +10,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
-
 
 import { AuthContext } from "../../context/AuthContext";
 
 const SignInPage = () => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const {login } = useContext(AuthContext);
-
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
-    login(username, password)
+    await login(username, password);
   };
-
 
   return (
     <Card className="w-full">
