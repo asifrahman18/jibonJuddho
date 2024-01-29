@@ -9,7 +9,7 @@ const HomePage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
   const router = useRouter();
   if(!isAuthenticated){
-    router.push("/user");
+    router.push("/signIn");
     return null;
   }
   return (
