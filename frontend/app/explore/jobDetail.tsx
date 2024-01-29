@@ -60,7 +60,7 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
   return (
     <div className="">
       {jobDetail ? (
-        <Card className="px-3 pt-3 dark:border-[#6c18bb] border-[#000000]">
+        <Card className="px-3 pt-3 dark:border-primary border-[#000000]">
           <div className="text-3xl md:text-6xl text-center">
             <h1>{jobDetail.title}</h1>
           </div>
