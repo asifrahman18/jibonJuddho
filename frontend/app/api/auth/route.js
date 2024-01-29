@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { setTokenCookie, getTokenCookie, removeTokenCookie } from "./cookie";
 
-const BASE_URL = PROCESS.ENV.BASE_URL;
+const BASE_URL = "";
 
 export const loginUser = async (username, password) => {
   try {
