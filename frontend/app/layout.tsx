@@ -1,7 +1,6 @@
 import { ThemeProvider } from "@/components/ui/theme";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
-import { Container } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "./components/footer";
@@ -32,7 +31,7 @@ export default function RootLayout({
           >
             <NavBar />
             <main className="pt-6">
-              <Container>{children}</Container>
+              {children}
             </main>
             <Toaster />
             <Footer />
