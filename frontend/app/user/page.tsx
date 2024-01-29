@@ -10,10 +10,11 @@ const HomePage = () => {
   const router = useRouter();
   if(!isAuthenticated){
     router.push("/user");
+    return null;
   }
   return (
     <div className="grid place-items-center min-h-screen text-6xl">
-      {isAuthenticated && (
+      {user && (
         <div >
           <p>Welcome {user.first_name}</p>
           <div className="flex flex-row justify-between p-4">

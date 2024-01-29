@@ -83,7 +83,7 @@ export default function Navbar() {
         </div>
         <div className="flex flex-row items-center gap-2">
           <div>
-            {isAuthenticated && (
+            {user && (
               <div>
               <DropdownMenu>
                 <DropdownMenuTrigger className="px-2 hidden md:inline">
