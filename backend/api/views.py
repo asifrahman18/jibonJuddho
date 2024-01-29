@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from api.models import Job
-from .serializers import JobSerializer, SignUpSerializer, UserSerializer
+from api.models import Job, Company
+from .serializers import JobSerializer, SignUpSerializer, UserSerializer, CompanySerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,12 +8,14 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.db.models import Count, Max, Min, Avg
 
-from rest_framework import status
+from rest_framework import status, viewsets, generics
 
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
-from .filters import JobsFilter
+from .filters import JobsFilter, CompanyFilter
+
+from rest_framework.permissions import IsAuthenticated
 
 class AllJobsView(APIView):
     def get(self, request, format=None):
@@ -31,38 +33,28 @@ class JobDetailView(APIView):
         except Job.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+class CompanyJobView(APIView):
+    
+    def get(self, request, pk):
+        try:
+            company = Company.objects.get(id=pk)
+            
+            jobs = Job.objects.filter(company=company)
+            
+            serializer = JobSerializer(jobs, many=True)
+            return Response(serializer.data)
+        except Company.DoesNotExist:
+            return Response({"error": "Company not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class AddJobView(APIView):
-    def post(self, request):
 
-        title = request.data.get('title') 
-        description = request.data.get('description')
-        email = request.data.get('email')
-        location = request.data.get('location')
-        job_type = request.data.get('jobType')
-        qualification = request.data.get('qualification')
-        salary = request.data.get('salary') 
-        openings = request.data.get('openings')
-        company = request.data.get('company')
-        user = request.data.get('user')
-        
+class JobCreateView(generics.CreateAPIView):
+    serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated]
 
-        job = Job() 
-        job.title = title
-        job.description = description
-        job.email = email
-        job.location = location
-        job.jobType = job_type
-        job.qualification = qualification
-        job.salary = salary
-        job.openings = openings 
-        job.company = company
-        job.user = request.user
-        
-
-        job.save()
-        
-        return Response(status=status.HTTP_201_CREATED)
+    def perform_create(self, serializer):
+        company_id = self.kwargs.get('company_id')
+        company = get_object_or_404(Company, pk=company_id)
+        serializer.save(company=company, user=self.request.user)
 
 
 
@@ -138,24 +130,46 @@ class RegisterView(APIView):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
 
-# @api_view(['PUT'])
-# def UpdateJobView(request, pk):
+    def get(self, request, format=None):
+        user_serializer = UserSerializer(request.user)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+
+
+
+class AllCompaniesView(APIView):
+    def get(self, request, format=None):
+        filterset = CompanyFilter(request.GET, queryset=Company.objects.all().order_by('id'))
+        serializer = CompanySerializer(filterset.qs, many=True)
+        return Response(serializer.data)
+
+
+class UserCompaniesView(APIView):
+    def get(self, request, pk, format=None):
+        user = get_object_or_404(User, id=pk)
+        user_companies = Company.objects.filter(user=user).order_by('id')
+        serializer = CompanySerializer(user_companies, many=True)
+        return Response(serializer.data)
+
+
+
+class CompanyDetailView(APIView):
+    permission_classes = [IsAuthenticated]
     
-#     job = Job.objects.get(id=pk)
+    def get(self, request, pk):
+        try: 
+            job = Company.objects.get(id=pk) 
+            serializer = CompanySerializer(job) 
+            return Response(serializer.data)
+        except Job.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+class CompanyCreateView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
     
-#     job.title = request.data['title']
-#     job.description = request.data['description']
-#     job.email = request.data['email']
-#     job.location = request.data['location']
-#     job.jobType = request.data['jobType']
-#     job.qualification = request.data['qualification']
-#     job.salary = request.data['salary']
-#     job.openings = request.data['openings']
-#     job.expiresAt = request.data['expiresAt']
-    
-#     job.save()
-    
-#     serializer = JobSerializer(job, many=False)
-    
-#     return Response(serializer.data)
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer

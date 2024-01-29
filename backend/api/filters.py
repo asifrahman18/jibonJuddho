@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from .models import Job
+from .models import Job, Company
 
 
 class JobsFilter(filters.FilterSet):
@@ -12,3 +12,11 @@ class JobsFilter(filters.FilterSet):
     class Meta:
         model = Job
         fields = ('keyword','location', 'qualification', 'jobType', 'min_salary','max_salary')
+
+
+class CompanyFilter(filters.FilterSet):
+    
+    
+    class Meta:
+        model = Company
+        fields = '__all__'
