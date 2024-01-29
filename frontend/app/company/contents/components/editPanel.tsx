@@ -22,7 +22,7 @@ export function EditPanel() {
         <SheetHeader>
           <SheetTitle>Edit Company</SheetTitle>
           <SheetDescription>
-            Make changes to your information here. Click save when you're done.
+            Make changes to your information here. Click save when you are done.
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">

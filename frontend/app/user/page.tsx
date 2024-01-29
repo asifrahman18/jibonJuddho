@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 const HomePage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
   const router = useRouter();
-  if(!isAuthenticated){
-    router.push("/user");
-  }
+  // if(!isAuthenticated){
+  //   router.push("/signIn");
+  //   return null;
+  // }
   return (
     <div className="grid place-items-center min-h-screen text-6xl">
-      {isAuthenticated && (
+      {user && (
         <div >
           <p>Welcome {user.first_name}</p>
           <div className="flex flex-row justify-between p-4">
@@ -26,6 +27,9 @@ const HomePage = () => {
           </div>
         </div>
       )}
+      {!isAuthenticated && <p>
+        You have to <Link href='/signIn'>signIn</Link> first
+        </p>}
     </div>
   );
 };
