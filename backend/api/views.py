@@ -33,6 +33,19 @@ class JobDetailView(APIView):
         except Job.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+class CompanyJobView(APIView):
+    
+    def get(self, request, pk):
+        try:
+            company = Company.objects.get(id=pk)
+            
+            jobs = Job.objects.filter(company=company)
+            
+            serializer = JobSerializer(jobs, many=True)
+            return Response(serializer.data)
+        except Company.DoesNotExist:
+            return Response({"error": "Company not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 class JobCreateView(generics.CreateAPIView):
     serializer_class = JobSerializer

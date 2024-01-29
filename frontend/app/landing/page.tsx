@@ -1,16 +1,25 @@
-import React from 'react'
-import HeroSection from './sections/hero/page'
-import EmployerSection from './sections/employer/page'
-import EmployeeSection from './sections/employee/page'
+"use client";
+import { AuthContext } from "@/context/AuthContext";
+import { useContext } from "react";
+import EmployeeSection from "./sections/employee/page";
+import EmployerSection from "./sections/employer/page";
+import HeroSection from "./sections/hero/page";
+import { redirect } from 'next/navigation';
 
 const Landing = () => {
+  const { isAuthenticated, user } = useContext(AuthContext);
   return (
     <div>
-      <HeroSection/>
-      <EmployeeSection/>
-      <EmployerSection/>
+      {!isAuthenticated && (
+        <div>
+          <HeroSection />
+          <EmployeeSection />
+          <EmployerSection />
+        </div>
+      )}
+      {isAuthenticated && redirect('/user')}
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

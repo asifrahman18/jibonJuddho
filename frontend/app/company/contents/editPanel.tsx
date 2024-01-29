@@ -11,6 +11,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+interface Company {
+  id: number;
+  name: string;
+  description: string;
+  phone: string;
+  location: string;
+  email: string;
+}
 
 export function EditPanel() {
   return (
@@ -30,7 +38,7 @@ export function EditPanel() {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input id="name" value="" className="col-span-3" />
+            <Input id="name" value='' className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">

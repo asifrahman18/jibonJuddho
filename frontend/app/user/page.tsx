@@ -4,14 +4,17 @@ import Link from "next/link";
 import { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { redirect } from 'next/navigation'
 
 const HomePage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
   const router = useRouter();
-  // if(!isAuthenticated){
-  //   router.push("/signIn");
-  //   return null;
-  // }
+
+  if(!isAuthenticated){
+    redirect('/signIn');
+  }
+
+  
   return (
     <div className="grid place-items-center min-h-screen text-6xl">
       {user && (
