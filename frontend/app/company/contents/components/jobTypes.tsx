@@ -18,6 +18,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+interface JobTypesProps {
+  onSelectType: (type: string) => void;
+}
+
 const types = [
   {
     value: "training",
@@ -28,16 +32,16 @@ const types = [
     label: "Internship",
   },
   {
-    value: "parttime",
+    value: "partTime",
     label: "Part time",
   },
   {
-    value: "fulltime",
+    value: "fullTime",
     label: "Full time",
   },
 ]
 
-export function JobTypes() {
+export function JobTypes({ onSelectType }: JobTypesProps) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -45,7 +49,7 @@ export function JobTypes() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="secondary"
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
@@ -65,8 +69,9 @@ export function JobTypes() {
                 key={type.value}
                 value={type.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue)
-                  setOpen(false)
+                  setValue(currentValue === value ? "" : currentValue);
+                  onSelectType(currentValue);
+                  setOpen(false);
                 }}
               >
                 {type.label}

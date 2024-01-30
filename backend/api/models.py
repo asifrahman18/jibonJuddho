@@ -23,17 +23,17 @@ class Company(models.Model):
 
 
 class JobType(models.TextChoices):
-    Training = 'Training'
-    Internship = 'Internship'
-    FullTime = 'FullTime'
-    PartTime = 'PartTime'
+    training = 'training'
+    internship = 'internship'
+    fullTime = 'fulltime'
+    partTime = 'parttime'
 
 class Qualification(models.TextChoices):
-    Any = 'Any'
-    SSC = 'SSC or equivalent'
-    HSC = 'HSC or equivalent'
-    Undergraduate = 'Undergraduate'
-    Postgraduate = 'Postgraduate'
+    any = 'any'
+    ssc = 'ssc'
+    hsc = 'hsc'
+    undergraduate = 'undergraduate'
+    postgraduate = 'postgraduate'
 
 def expireDate():
     now = datetime.now()
@@ -42,18 +42,19 @@ def expireDate():
 
 class Job(models.Model):
     title= models.CharField(max_length=200,null=True)
+    status= models.CharField(max_length=10,null=True)
     description= models.TextField(null=True)
     email= models.EmailField(null=True)
     location= models.CharField(max_length=200,null=True)
     jobType= models.CharField(
         max_length=10,
         choices = JobType.choices,
-        default = JobType.Training,
+        default = JobType.training,
         )
     qualification= models.CharField(
         max_length=25,
         choices = Qualification.choices,
-        default = Qualification.Any,
+        default = Qualification.any,
     )
     salary= models.IntegerField(default=0,null=True)
     openings= models.IntegerField(default=1,null=True)
