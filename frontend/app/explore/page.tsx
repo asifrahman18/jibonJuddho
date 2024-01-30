@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getJobs } from "../api/getJobs/route";
+import { getJobs } from "../api/jobs/route";
+import moment from "moment";
 
 import JobDetail from "./jobDetail";
 
@@ -26,6 +27,7 @@ interface Job {
   openings: number;
   qualification: string;
   company: string;
+  expiresAt: string;
 }
 
 const Explore = () => {
@@ -72,9 +74,14 @@ const Explore = () => {
                     className="cursor-pointer"
                     onClick={() => handleJobClick(job.id)}
                   >
-                    <TableCell className="border p-2">{job.title}</TableCell>
+                    {moment(job.expiresAt).isAfter(moment())?(
+                      <>
+                      <TableCell className="border p-2">{job.title}</TableCell>
                     <TableCell className="border p-2">{job.jobType}</TableCell>
                     <TableCell className="border p-2">{job.location}</TableCell>
+                      </>
+                    ): null}
+                    
                   </TableRow>
                 ))}
               </TableBody>

@@ -28,8 +28,8 @@ export default function Navbar() {
 
   const { isAuthenticated, user, logout } = useContext(AuthContext);
 
-  const logoutHandler = () => {
-    logout();
+  const logoutHandler = async () => {
+    await logout();
   };
 
   const menus = [

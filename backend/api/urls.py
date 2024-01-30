@@ -19,12 +19,12 @@ urlpatterns = [
     #detail view of a job
     path('company/job/<str:pk>/', CompanyJobView.as_view(), name='company_job'),
     
-    
+    #edit job
     path('job/<str:pk>/update/', UpdateJobView.as_view(), name='updateJob'),
     
     
     #delete a job
-    path('jobs/<str:pk>/delete', DeleteJobView.as_view(), name='delete_job'),
+    path('jobs/<str:pk>/delete/', DeleteJobView.as_view(), name='delete_job'),
     
     #show all job stats based on topic
     path('jobs/stat/<str:topic>/', TopicStatView.as_view(), name='topic_stat'),
@@ -46,7 +46,7 @@ urlpatterns = [
     
     
     #create company from user
-    path('company/register/', CompanyCreateView.as_view(), name='register_company'),
+    path('company/register/<str:user_id>/', CompanyCreateView.as_view(), name='register_company'),
     
     
     
@@ -64,16 +64,8 @@ urlpatterns = [
     
     
     #add jobs from a company
-    path('company/<int:company_id>/add-job/', JobCreateView.as_view(), name='add_job'),
+    path('company/<int:company_id>/addjob/', JobCreateView.as_view(), name='add_job'),
     
     # todo
-    
-    
-    
-    
-    
-    
-    
-    
 
 ]

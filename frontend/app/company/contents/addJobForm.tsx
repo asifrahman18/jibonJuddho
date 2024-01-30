@@ -1,4 +1,8 @@
 import React from "react";
+import { useState } from "react";
+import { addJobs } from "@/app/api/jobs/route";
+import { useToast } from "@/components/ui/use-toast"
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -44,7 +48,61 @@ interface Job {
 }
 
 const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
+  const { toast } = useToast()
+
   const [date, setDate] = React.useState<Date>();
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [type, setType] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [salary, setSalary] = useState("");
+  const [openings, setOpenings] = useState("");
+
+  const handleSelectType = (selectedType: string) => {
+    setType(selectedType);
+  };
+
+  const handleSelectQualification = (selectedQualification: string) => {
+    setQualification(selectedQualification);
+  };
+
+  const viewAll = async () => {
+    try {
+      const response = await addJobs(compId, {
+        title: name,
+        description,
+        email,
+        location,
+        openings,
+        jobType: type,
+        qualification,
+        salary: parseInt(salary),
+        expiresAt: date?.toISOString(),
+      });
+
+      if(response){
+        toast({
+          title: "Good News!",
+          description: 'Job Added Successfully',
+        })
+      }
+
+      console.log("Job created successfully:", response);
+
+    } catch (error) {
+      console.error("Error creating job:", error);
+      toast({
+        title: "Something went wrong",
+        description: 'Try again',
+        variant: 'destructive'
+      })
+    }
+  };
+
   return (
     <div>
       <Card className="w-full">
@@ -60,7 +118,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                   id="text"
                   type="text"
                   placeholder="Job Name"
-                  // onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -70,7 +128,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                   id="jobDescription"
                   type="text"
                   placeholder="Job Description"
-                  // onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                 />
               </div>
@@ -82,7 +140,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     id="email"
                     type="email"
                     placeholder="Email"
-                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -92,7 +150,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     id="phone"
                     type="number"
                     placeholder="Phone"
-                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </div>
@@ -102,7 +160,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     id="location"
                     type="text"
                     placeholder="Location"
-                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setLocation(e.target.value)}
                     required
                   />
                 </div>
@@ -111,11 +169,11 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
               <div className="flex justify-between">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="types">Job Type</Label>
-                  <JobTypes />
+                  <JobTypes onSelectType={handleSelectType} />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="qualification">Qualification</Label>
-                  <Qualification />
+                  <Qualification onSelectQualification={handleSelectQualification}/>
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="salary">Salary</Label>
@@ -123,18 +181,19 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     id="salary"
                     type="number"
                     placeholder="Salary"
-                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setSalary(e.target.value)}
                     required
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="salary">Expires At</Label>
+              <div className="flex justify-between">
+                <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="expire">Expires At</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
+                      variant={"secondary"}
                       className={cn(
                         "w-[240px] justify-start text-left font-normal",
                         !date && "text-muted-foreground"
@@ -153,12 +212,23 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     />
                   </PopoverContent>
                 </Popover>
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="openings">Openings</Label>
+                  <Input
+                    id="salary"
+                    type="number"
+                    placeholder="Openings"
+                    onChange={(e) => setOpenings(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter>
-          <Button className="">Add</Button>
+          <Button className="" onClick={viewAll}>Add</Button>
         </CardFooter>
       </Card>
     </div>

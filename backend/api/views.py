@@ -49,12 +49,11 @@ class CompanyJobView(APIView):
 
 class JobCreateView(generics.CreateAPIView):
     serializer_class = JobSerializer
-    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         company_id = self.kwargs.get('company_id')
         company = get_object_or_404(Company, pk=company_id)
-        serializer.save(company=company, user=self.request.user)
+        serializer.save(company=company)
 
 
 
@@ -167,9 +166,24 @@ class CompanyDetailView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+class CompanyCreateView(APIView):
+    def post(self, request, user_id, format=None):
+        user = get_object_or_404(User, id=user_id)
+        data = request.data
 
-class CompanyCreateView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
-    
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+        name = data.get('name')
+        description = data.get('description')
+        email = data.get('email')
+        location = data.get('location')
+        phone = data.get('phone')
+
+        company = Company.objects.create(
+            name=name,
+            description=description,
+            email=email,
+            location=location,
+            phone=phone,
+            user=user
+        )
+
+        return Response({'message': 'Company registered successfully'}, status=status.HTTP_201_CREATED)
