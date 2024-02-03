@@ -45,6 +45,7 @@ class Job(models.Model):
     status= models.CharField(max_length=10,null=True)
     description= models.TextField(null=True)
     email= models.EmailField(null=True)
+    phone = models.CharField(max_length=15, null=True)
     location= models.CharField(max_length=200,null=True)
     jobType= models.CharField(
         max_length=10,

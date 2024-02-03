@@ -16,7 +16,7 @@ const Contents = () => {
           Elevate Your Career With Us
         </h1>
         <div className="pt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+          <Card className="hover:border-primary">
             <CardHeader className="text-xl font-extrabold">
               Diverse Opportunities
             </CardHeader>
@@ -27,7 +27,7 @@ const Contents = () => {
               iusto recusandae dolorum eaque, ex dicta?
             </CardContent>
           </Card>
-          <Card>
+          <Card className="hover:border-primary">
             <CardHeader className="text-xl font-extrabold">
               Diverse Opportunities
             </CardHeader>
@@ -38,7 +38,7 @@ const Contents = () => {
               iusto recusandae dolorum eaque, ex dicta?
             </CardContent>
           </Card>
-          <Card>
+          <Card className="hover:border-primary">
             <CardHeader className="text-xl font-extrabold">
               Diverse Opportunities
             </CardHeader>
@@ -49,7 +49,7 @@ const Contents = () => {
               iusto recusandae dolorum eaque, ex dicta?
             </CardContent>
           </Card>
-          <Card>
+          <Card className="hover:border-primary">
             <CardHeader className="text-xl font-extrabold">
               Diverse Opportunities
             </CardHeader>

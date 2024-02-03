@@ -1,14 +1,13 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { AuthContext } from "@/context/AuthContext";
 import Link from "next/link";
+import { redirect } from 'next/navigation';
 import { useContext } from "react";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { redirect } from 'next/navigation'
 
 const HomePage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
-  const router = useRouter();
+
 
   if(!isAuthenticated){
     redirect('/signIn');

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { getJobs } from "../api/jobs/route";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { getJobs } from "../api/jobs/route";
 
 import JobDetail from "./jobDetail";
 
@@ -74,14 +74,19 @@ const Explore = () => {
                     className="cursor-pointer"
                     onClick={() => handleJobClick(job.id)}
                   >
-                    {moment(job.expiresAt).isAfter(moment())?(
+                    {moment(job.expiresAt).isAfter(moment()) ? (
                       <>
-                      <TableCell className="border p-2">{job.title}</TableCell>
-                    <TableCell className="border p-2">{job.jobType}</TableCell>
-                    <TableCell className="border p-2">{job.location}</TableCell>
+                        <TableCell className="border p-2">
+                          {job.title}
+                        </TableCell>
+                        <TableCell className="border p-2">
+                          {job.jobType}
+                        </TableCell>
+                        <TableCell className="border p-2">
+                          {job.location}
+                        </TableCell>
                       </>
-                    ): null}
-                    
+                    ) : null}
                   </TableRow>
                 ))}
               </TableBody>
