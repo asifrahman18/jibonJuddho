@@ -3,6 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { redirect } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { getCompany } from "../api/company/route";
+import Company from '../models/company'
 
 import {
   Accordion,
@@ -14,15 +15,6 @@ import { Button } from "@/components/ui/button";
 import AddJobs from "./contents/addJobForm";
 import AddCompanyPanel from "./contents/addCompanyPanel";
 import ViewJobs from "./contents/viewJob";
-
-interface Company {
-  id: number;
-  name: string;
-  description: string;
-  phone: string;
-  location: string;
-  email: string;
-}
 
 const CompanyPage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);

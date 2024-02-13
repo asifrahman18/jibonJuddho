@@ -18,14 +18,6 @@ import {
 interface CompDetailProps {
   compId: number | null;
 }
-interface Company {
-  id: number;
-  name: string;
-  description: string;
-  phone: string;
-  location: string;
-  email: string;
-}
 
 const AddCompanyPanel: React.FC<CompDetailProps> = ({ compId }) => {
 
@@ -42,7 +34,7 @@ const AddCompanyPanel: React.FC<CompDetailProps> = ({ compId }) => {
     try {
       const response = await createCompany(compId, {
         name,
-         description,
+        description,
         email,
         phone,
         location

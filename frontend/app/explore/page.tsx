@@ -4,6 +4,8 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { getJobs } from "../api/jobs/route";
 
+import Job from '../models/job'
+
 import JobDetail from "./jobDetail";
 
 import {
@@ -15,20 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-  expiresAt: string;
-}
 
 const Explore = () => {
   const [jobs, setJobs] = useState<Job[]>([]);

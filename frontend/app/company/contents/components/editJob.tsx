@@ -1,6 +1,7 @@
 import { editJob } from "@/app/api/jobs/route";
 import { useToast } from "@/components/ui/use-toast";
 import React, { useState } from "react";
+import Job from '../../../models/job'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -32,28 +33,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-
-
-interface JobDetailProps {
-    jobId: number | null;
-    jobName: string | null;
-  }
-
-  interface Job {
-    id: number;
-    //phone: number;
-    title: string;
-    description: string;
-    email: string;
-    location: string;
-    jobType: string;
-    salary: number;
-    openings: number;
-    qualification: string;
-    company: string;
-    expiresAt: string;
-    createdAt: string;
-  }
 
 
   const EditJobs: React.FC<Job> = ({ id, title, description, email, location, jobType, salary, openings, qualification, company, expiresAt, createdAt }) => {
