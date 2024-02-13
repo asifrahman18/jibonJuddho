@@ -32,25 +32,10 @@ interface CompDetailProps {
   compName: string | null;
 }
 
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-  expiresAt: string;
-  createdAt: string;
-}
-
 const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
   const { toast } = useToast()
 
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = useState<Date>();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

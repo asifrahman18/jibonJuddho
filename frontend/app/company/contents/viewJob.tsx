@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import EditJobs from "./components/editJob";
 import { deleteJobs } from "@/app/api/jobs/route";
 import { useToast } from "@/components/ui/use-toast";
+import Job from '../../models/job'
 
 import {
   Dialog,
@@ -35,21 +36,6 @@ import { getCompanyJobs } from "../../api/company/route";
 
 interface CompDetailProps {
   compId: number | null;
-}
-
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-  expiresAt: string;
-  createdAt: string;
 }
 
 const ViewJobs: React.FC<CompDetailProps> = ({ compId }) => {

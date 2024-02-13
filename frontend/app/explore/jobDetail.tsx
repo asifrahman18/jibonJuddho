@@ -4,6 +4,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { getJobDetail } from "../api/jobs/route";
 import { AuthContext } from "@/context/AuthContext";
 
+import Job from '../models/job'
+
 import {
   Table,
   TableCell,
@@ -19,21 +21,6 @@ import {
 
 interface JobDetailProps {
   jobId: number | null;
-}
-
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-  expiresAt: string;
-  createdAt: string;
 }
 
 const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
