@@ -20,3 +20,20 @@ jobs:
                 - name: Checkout Code
                   uses: actions/checkout@v4
 
+                - name: Setup Python
+                  uses: actions/setup-python@v5
+                  with:
+                    python-version: '3.12'
+
+                - name: Install Dependencies
+                  run: |
+                      cd backend
+                      python -m pip install --upgrade pip
+                      pip install poetry
+                      poetry config virtualenvs.create false
+                      poetry install --no-dev
+
+                - name: Run Tests
+                  run: |
+                     cd backend
+                     python manage.py test
