@@ -87,17 +87,17 @@ class TopicStatView(APIView):
         args = {'title__icontains': topic}
         jobs = Job.objects.filter(**args)
 
-        if len(jobs) == 0:
+        if jobs.exists():  # Check if any jobs are found
+            stats = jobs.aggregate(
+                count=Count('id'),
+                avg_salary=Avg('salary'),
+                min_salary=Min('salary'),
+                max_salary=Max('salary'),
+            )
+            return Response(stats)
+        else:
             return Response({'message': 'No jobs found!'}, status=status.HTTP_404_NOT_FOUND)
 
-        stats = jobs.aggregate(
-            count=Count('id'),
-            avg_salary=Avg('salary'),
-            min_salary=Min('salary'),
-            max_salary=Max('salary'),
-        )
-
-        return Response(stats)
 
 
 
@@ -155,14 +155,14 @@ class UserCompaniesView(APIView):
 
 
 class CompanyDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     
     def get(self, request, pk):
         try: 
             job = Company.objects.get(id=pk) 
             serializer = CompanySerializer(job) 
             return Response(serializer.data)
-        except Job.DoesNotExist:
+        except Company.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
