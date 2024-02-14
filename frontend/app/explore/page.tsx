@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { getJobs } from "../api/getJobs/route";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { getJobs } from "../api/jobs/route";
+
+import Job from '../models/job'
 
 import JobDetail from "./jobDetail";
 
@@ -14,19 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-}
 
 const Explore = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -72,9 +62,19 @@ const Explore = () => {
                     className="cursor-pointer"
                     onClick={() => handleJobClick(job.id)}
                   >
-                    <TableCell className="border p-2">{job.title}</TableCell>
-                    <TableCell className="border p-2">{job.jobType}</TableCell>
-                    <TableCell className="border p-2">{job.location}</TableCell>
+                    {moment(job.expiresAt).isAfter(moment()) ? (
+                      <>
+                        <TableCell className="border p-2">
+                          {job.title}
+                        </TableCell>
+                        <TableCell className="border p-2">
+                          {job.jobType}
+                        </TableCell>
+                        <TableCell className="border p-2">
+                          {job.location}
+                        </TableCell>
+                      </>
+                    ) : null}
                   </TableRow>
                 ))}
               </TableBody>

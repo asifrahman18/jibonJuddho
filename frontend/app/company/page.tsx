@@ -3,6 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { redirect } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { getCompany } from "../api/company/route";
+import Company from '../models/company'
 
 import {
   Accordion,
@@ -12,17 +13,8 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import AddJobs from "./contents/addJobForm";
-import { EditPanel } from "./contents/editPanel";
+import AddCompanyPanel from "./contents/addCompanyPanel";
 import ViewJobs from "./contents/viewJob";
-
-interface Company {
-  id: number;
-  name: string;
-  description: string;
-  phone: string;
-  location: string;
-  email: string;
-}
 
 const CompanyPage = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -66,7 +58,7 @@ const CompanyPage = () => {
   };
 
   const handleViewClick = (companyID: number) => {
-    console.log('Inside fetch hancleviewclicl-viewjob:',companyID);
+    //console.log('Inside fetch hancleviewcliclviewjob:',companyID);
     setId(null);
     setJId(companyID);
     console.log(Jid);
@@ -76,7 +68,7 @@ const CompanyPage = () => {
     <div className="grid grid-cols-2 gap-2 pt-24 px-4 h-screen">
       {isAuthenticated && (
         <div className=" p-4">
-          <Button className="m-4">Add Company</Button>
+          <AddCompanyPanel compId={user.id}/>
           <div className="text-2xl font-bold mb-4">
             {isCompany && (
               <div>
@@ -112,7 +104,6 @@ const CompanyPage = () => {
                             Add Jobs
                           </Button>
                           <Button variant="outline" onClick={() => handleViewClick(comp.id)}>View Jobs</Button>
-                          <EditPanel/>
                         </div>
                       </AccordionContent>
                     </AccordionItem>

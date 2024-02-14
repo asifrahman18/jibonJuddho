@@ -23,44 +23,46 @@ class Company(models.Model):
 
 
 class JobType(models.TextChoices):
-    Training = 'Training'
-    Internship = 'Internship'
-    FullTime = 'FullTime'
-    PartTime = 'PartTime'
+    training = 'training'
+    internship = 'internship'
+    fullTime = 'fulltime'
+    partTime = 'parttime'
 
 class Qualification(models.TextChoices):
-    Any = 'Any'
-    SSC = 'SSC or equivalent'
-    HSC = 'HSC or equivalent'
-    Undergraduate = 'Undergraduate'
-    Postgraduate = 'Postgraduate'
+    any = 'any'
+    ssc = 'ssc'
+    hsc = 'hsc'
+    undergraduate = 'undergraduate'
+    postgraduate = 'postgraduate'
 
 def expireDate():
     now = datetime.now()
-    return now + timedelta(days=30)
+    expiration_date = now + timedelta(days=30)
+    return expiration_date
 
 
 class Job(models.Model):
     title= models.CharField(max_length=200,null=True)
+    status= models.CharField(max_length=10,null=True)
     description= models.TextField(null=True)
     email= models.EmailField(null=True)
+    phone = models.CharField(max_length=15, null=True)
     location= models.CharField(max_length=200,null=True)
     jobType= models.CharField(
         max_length=10,
         choices = JobType.choices,
-        default = JobType.Training,
+        default = JobType.training,
         )
     qualification= models.CharField(
         max_length=25,
         choices = Qualification.choices,
-        default = Qualification.Any,
+        default = Qualification.any,
     )
     salary= models.IntegerField(default=0,null=True)
     openings= models.IntegerField(default=1,null=True)
     createdAt= models.DateTimeField(auto_now_add=True,null=True)
     expiresAt= models.DateTimeField(expireDate,null=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, related_name='jobs')
-    #user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='user_jobs')
     
     def __str__(self):
         return f"{self.title}"

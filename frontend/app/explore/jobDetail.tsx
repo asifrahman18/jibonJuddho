@@ -1,8 +1,10 @@
 import moment from "moment";
 import Link from "next/link";
 import React, { useEffect, useState, useContext } from "react";
-import { getJobDetail } from "../api/getJobs/route";
+import { getJobDetail } from "../api/jobs/route";
 import { AuthContext } from "@/context/AuthContext";
+
+import Job from '../models/job'
 
 import {
   Table,
@@ -19,21 +21,6 @@ import {
 
 interface JobDetailProps {
   jobId: number | null;
-}
-
-interface Job {
-  id: number;
-  title: string;
-  description: string;
-  email: string;
-  location: string;
-  jobType: string;
-  salary: number;
-  openings: number;
-  qualification: string;
-  company: string;
-  expiresAt: string;
-  createdAt: string;
 }
 
 const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
@@ -82,7 +69,18 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
               </TableRow>
               <TableRow>
                 <TableHead>Expires At</TableHead>
-                <TableCell>{jobDetail.expiresAt.substring(0, 10)}</TableCell>
+                {/* <TableCell>{jobDetail.expiresAt.substring(0, 10)}</TableCell> */}
+                <TableCell>
+              {moment(jobDetail.expiresAt).isBefore(moment()) ? (
+                'Expired'
+              ) : (
+                <>
+                  {jobDetail.expiresAt.substring(0, 10)}
+                  {' - '}
+                  {moment(jobDetail.expiresAt).endOf('day').fromNow()}
+                </>
+              )}
+            </TableCell>
               </TableRow>
               <TableRow>
               <TableHead>Location</TableHead>

@@ -7,6 +7,7 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { BsStars } from "react-icons/bs";
 import { ImOffice } from "react-icons/im";
 import { ModeToggle } from "./components/theme-toggle";
+import { EditProfile } from "./user/editProfile";
 
 import { useContext } from "react";
 
@@ -28,8 +29,8 @@ export default function Navbar() {
 
   const { isAuthenticated, user, logout } = useContext(AuthContext);
 
-  const logoutHandler = () => {
-    logout();
+  const logoutHandler = async () => {
+    await logout();
   };
 
   const menus = [
@@ -97,6 +98,7 @@ export default function Navbar() {
                     {user.first_name}
                   </DropdownMenuLabel>
                   <DropdownMenuItem><Link href='/user'>Dashboard</Link></DropdownMenuItem>
+                  <DropdownMenuItem><EditProfile/></DropdownMenuItem>
                   <DropdownMenuItem>{user.email}</DropdownMenuItem>
                   <DropdownMenuLabel  onClick={logoutHandler}
                       className="text-[#ff4545] hover:cursor-pointer">

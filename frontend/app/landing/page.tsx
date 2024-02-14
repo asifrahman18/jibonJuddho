@@ -10,7 +10,7 @@ const Landing = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
   return (
     <div>
-      {!isAuthenticated && (
+      {!user && (
         <div>
           <HeroSection />
           <EmployeeSection />

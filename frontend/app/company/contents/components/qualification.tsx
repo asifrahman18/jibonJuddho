@@ -18,30 +18,34 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+interface QualificationProps {
+  onSelectQualification: (type: string) => void;
+}
+
 const types = [
   {
-    value: "Any",
+    value: 'any',
     label: "Any",
   },
   {
-    value: "Ssc",
+    value: 'ssc',
     label: "SSC or Equivalent",
   },
   {
-    value: "Hsc",
+    value: 'hsc',
     label: "HSC or Equivanlent",
   },
   {
-    value: "Undergraduate",
+    value: 'undergraduate',
     label: "Undergraduate",
   },
   {
-    value: "Postgraduate",
+    value: 'postgraduate',
     label: "Postgraduate",
   },
 ]
 
-export function Qualification() {
+export function Qualification({ onSelectQualification }: QualificationProps) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -49,7 +53,7 @@ export function Qualification() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="secondary"
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
@@ -69,8 +73,9 @@ export function Qualification() {
                 key={type.value}
                 value={type.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue)
-                  setOpen(false)
+                  setValue(currentValue === value ? "" : currentValue);
+                  onSelectQualification(currentValue);
+                  setOpen(false);
                 }}
               >
                 {type.label}

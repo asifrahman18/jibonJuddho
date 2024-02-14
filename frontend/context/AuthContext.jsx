@@ -1,12 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
+import { redirect } from 'next/navigation'
 import { createContext, useEffect, useState } from "react";
-import {  removeTokenCookie } from "../app/api/auth/cookie";
+import { removeTokenCookie } from "../app/api/auth/cookie";
 import {
   checkAuthentication,
   loginUser,
-  logoutUser,
-  registerUser,
+  registerUser
 } from "../app/api/auth/route";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState(null);
 
-  const router = useRouter();
+  //const router = useRouter();
 
   useEffect(() => {
     if (!user) {
@@ -55,7 +55,8 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         setUser(response);
         console.log("Login successful:", response);
-        router.push("/user");
+        //router.push("/user");
+        redirect("/user");
       } else
         toast({
           variant: "destructive",
@@ -103,9 +104,8 @@ export const AuthProvider = ({ children }) => {
       removeTokenCookie();
       setUser(null);
       setAuthenticated(false);
-      window.localStorage.removeItem("user");
-      router.push("./signIn/");
       console.log("Logout successful:", response);
+      redirect('/signIn');
     } catch (error) {
       console.error("load failed:", error);
     }

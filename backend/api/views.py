@@ -49,12 +49,11 @@ class CompanyJobView(APIView):
 
 class JobCreateView(generics.CreateAPIView):
     serializer_class = JobSerializer
-    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         company_id = self.kwargs.get('company_id')
         company = get_object_or_404(Company, pk=company_id)
-        serializer.save(company=company, user=self.request.user)
+        serializer.save(company=company)
 
 
 
@@ -88,17 +87,17 @@ class TopicStatView(APIView):
         args = {'title__icontains': topic}
         jobs = Job.objects.filter(**args)
 
-        if len(jobs) == 0:
+        if jobs.exists():  # Check if any jobs are found
+            stats = jobs.aggregate(
+                count=Count('id'),
+                avg_salary=Avg('salary'),
+                min_salary=Min('salary'),
+                max_salary=Max('salary'),
+            )
+            return Response(stats)
+        else:
             return Response({'message': 'No jobs found!'}, status=status.HTTP_404_NOT_FOUND)
 
-        stats = jobs.aggregate(
-            count=Count('id'),
-            avg_salary=Avg('salary'),
-            min_salary=Min('salary'),
-            max_salary=Max('salary'),
-        )
-
-        return Response(stats)
 
 
 
@@ -156,20 +155,35 @@ class UserCompaniesView(APIView):
 
 
 class CompanyDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     
     def get(self, request, pk):
         try: 
             job = Company.objects.get(id=pk) 
             serializer = CompanySerializer(job) 
             return Response(serializer.data)
-        except Job.DoesNotExist:
+        except Company.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+class CompanyCreateView(APIView):
+    def post(self, request, user_id, format=None):
+        user = get_object_or_404(User, id=user_id)
+        data = request.data
 
-class CompanyCreateView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
-    
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+        name = data.get('name')
+        description = data.get('description')
+        email = data.get('email')
+        location = data.get('location')
+        phone = data.get('phone')
+
+        company = Company.objects.create(
+            name=name,
+            description=description,
+            email=email,
+            location=location,
+            phone=phone,
+            user=user
+        )
+
+        return Response({'message': 'Company registered successfully'}, status=status.HTTP_201_CREATED)

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "project"
+version = "0.1.9"
+description = "A nationwide portal for listing jobs, training and internship programs"
+authors = ["JibonJuddho"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonary.api"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2"
+djangorestframework = "^3.14"
+djangorestframework-simplejwt = "5.3.1"
+django-cors-headers = "4.3.1"
+django-filter = "23.5"
+PyJWT = "2.8.0"
