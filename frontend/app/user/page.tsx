@@ -15,7 +15,7 @@ const HomePage = () => {
 
   
   return (
-    <div className="grid place-items-center min-h-screen text-6xl">
+    <div className="grid place-items-center min-h-screen text-3xl md:text-5xl lg:text-6xl">
       {user && (
         <div >
           <p>Welcome {user.first_name}</p>

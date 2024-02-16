@@ -99,7 +99,7 @@ const AddCompanyPanel: React.FC<CompDetailProps> = ({ compId }) => {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button onClick={addComp}>Save changes</Button>
+            <Button onClick={addComp}>Add Company</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

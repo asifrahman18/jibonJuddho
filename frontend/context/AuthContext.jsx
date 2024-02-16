@@ -1,5 +1,5 @@
 "use client";
-//import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { redirect } from 'next/navigation'
 import { createContext, useEffect, useState } from "react";
 import { removeTokenCookie } from "../app/api/auth/cookie";
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState(null);
 
-  //const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       const response = await loginUser(username, password);
       console.log("Response:", response);
       await loadUser();
-      // router.push("/user");
+      router.push("/user");
     } catch (error) {
       console.error("Login failed:", error);
       toast({

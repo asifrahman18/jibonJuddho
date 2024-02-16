@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { Badge } from "@/components/ui/badge";
-import EditJobs from "./components/editJob";
 import { deleteJobs } from "@/app/api/jobs/route";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
-import Job from '../../models/job'
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import Job from '../../models/job';
+import EditJobs from "./components/editJob";
 
 import {
   Dialog,
@@ -15,8 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 import {
   Accordion,
@@ -28,9 +26,8 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { getCompanyJobs } from "../../api/company/route";
 
