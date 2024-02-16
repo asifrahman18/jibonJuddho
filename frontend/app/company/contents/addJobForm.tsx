@@ -118,7 +118,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                 />
               </div>
               <CardTitle>Add Contact Information</CardTitle>
-              <div className="flex justify-between">
+              <div className="xl:flex xl:justify-between">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -129,7 +129,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     required
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="phone">Phone Number</Label>
                   <Input
                     id="phone"
@@ -139,7 +139,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                     required
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="text">Location</Label>
                   <Input
                     id="location"
@@ -151,16 +151,16 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                 </div>
               </div>
               <CardTitle>Add Job Information</CardTitle>
-              <div className="flex justify-between">
-                <div className="flex flex-col space-y-1.5">
+              <div className="xl:flex xl:justify-between">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="types">Job Type</Label>
                   <JobTypes onSelectType={handleSelectType} />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="qualification">Qualification</Label>
                   <Qualification onSelectQualification={handleSelectQualification}/>
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="salary">Salary</Label>
                   <Input
                     id="salary"
@@ -172,7 +172,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="xl:flex xl:justify-between">
                 <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="expire">Expires At</Label>
                 <Popover>
@@ -198,7 +198,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
                   </PopoverContent>
                 </Popover>
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 pt-2">
                   <Label htmlFor="openings">Openings</Label>
                   <Input
                     id="salary"

@@ -40,7 +40,7 @@ const Explore = () => {
   };
 
   return (
-    <div className="flex h-screen pt-11">
+    <div className="md:flex h-screen pt-11">
       <div className="flex-1 p-4">
         <>
           {jobs.length === 0 ? (
@@ -82,7 +82,7 @@ const Explore = () => {
           )}
         </>
       </div>
-      <div className="flex-1 p-4">
+      <div className="block md:flex-1 p-4">
         <JobDetail jobId={selectedJobId} />
       </div>
     </div>

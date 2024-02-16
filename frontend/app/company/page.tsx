@@ -34,7 +34,7 @@ const CompanyPage = () => {
     if (user && user.id) {
       fetchData(user.id);
     }
-  }, [user]);
+  },);
 
   const fetchData = async (Uid: number) => {
     try {
@@ -65,14 +65,14 @@ const CompanyPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2 pt-24 px-4 h-screen">
+    <div className="grid lg:grid-cols-2 lg:gap-2 pt-24 px-4 h-full xl:h-screen min-h-[100vh]">
       {isAuthenticated && (
         <div className=" p-4">
           <AddCompanyPanel compId={user.id}/>
           <div className="text-2xl font-bold mb-4">
             {isCompany && (
               <div>
-                <p className="my-2">Your Registered Company</p>
+                <p className="mt-8 pb-2 text-3xl">Your Registered Company</p>
                 <Accordion type="single" collapsible className="w-full">
                   {company.map((comp) => (
                     <AccordionItem
