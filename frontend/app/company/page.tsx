@@ -17,7 +17,7 @@ import AddCompanyPanel from "./contents/addCompanyPanel";
 import ViewJobs from "./contents/viewJob";
 
 const CompanyPage = () => {
-  const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated, user, loadUser } = useContext(AuthContext);
   const Uid = user?.id;
   const [company, setCompany] = useState<Company[]>([]);
   const [isCompany, setIsCompany] = useState(false);
@@ -26,9 +26,17 @@ const CompanyPage = () => {
   const [Jid, setJId] = useState<number | null>(null);
   const [name, setName] = useState<string | null>(null);
 
-  if (!isAuthenticated) {
-    redirect("/signIn");
-  }
+  useEffect(() => {
+    
+    const findUser = async () =>{
+      await loadUser()
+      
+      if (!isAuthenticated && !user) {
+        redirect("/signIn");
+      }
+    }
+
+  },[isAuthenticated]);
 
   useEffect(() => {
     if (user && user.id) {

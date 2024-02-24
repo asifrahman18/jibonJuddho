@@ -36,7 +36,6 @@ export default function Navbar() {
   const menus = [
     { icon: <AiOutlineQuestionCircle />, title: "About", path: "/" },
     { icon: <BsStars />, title: "Explore", path: "/explore" },
-    // { icon: <BsTelephone />, title: "Login", path: "/pages/signIn" },
   ];
 
   return (
@@ -61,7 +60,7 @@ export default function Navbar() {
               {menus.map((item, idx) => (
                 <li
                   key={idx}
-                  className={`font-nunito hover:text-white ${
+                  className={`font-nunito dark:hover:text-white hover:text-primary ${
                     state
                       ? "text-primary md:text-[#8F9BB7] lg:text-[#8F9BB7]"
                       : "text-[#8F9BB7]"
