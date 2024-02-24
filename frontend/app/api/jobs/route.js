@@ -1,7 +1,7 @@
 'use clinet'
 import axios from "axios";
 
-let BASE_URL = process.env.NEXT_PUBLIC_URL.replace(";", "")
+let BASE_URL = process.env.NEXT_PUBLIC_URL
 
 
 export async function getJobs() {

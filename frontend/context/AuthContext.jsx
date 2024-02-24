@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await loginUser(username, password);
-      console.log("Response:", response);
       await loadUser();
       router.push("/user");
     } catch (error) {
@@ -48,14 +47,11 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await checkAuthentication();
-      console.log("User loaded:", response);
 
       if (response.id) {
         setAuthenticated(true);
         setLoading(false);
         setUser(response);
-        console.log("Login successful:", response);
-        //router.push("/user");
         redirect("/user");
       } else
         toast({
@@ -121,6 +117,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         register,
+        loadUser,
       }}
     >
       {children}
