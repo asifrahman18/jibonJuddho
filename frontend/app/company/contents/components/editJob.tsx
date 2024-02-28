@@ -92,11 +92,12 @@ import { cn } from "@/lib/utils";
       };
 
   return (
+    <div className="overflow-y-auto max-h-[100vh]">
     <Dialog>
       <DialogTrigger asChild>
         <Button>Edit Job</Button>
       </DialogTrigger>
-      <DialogContent className="w-full">
+      <DialogContent className="max-h-[100vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Edit Job</DialogTitle>
           <DialogDescription>
@@ -106,7 +107,7 @@ import { cn } from "@/lib/utils";
         <div className="grid gap-4 py-4">
         <Card className="w-full">
         <CardHeader>
-          <CardTitle>Edit Job for {title}</CardTitle>
+          <CardTitle className="text-xl lg:text-3xl">Edit Job for {title}</CardTitle>
         </CardHeader>
         <CardContent>
           <form>
@@ -131,9 +132,9 @@ import { cn } from "@/lib/utils";
                   required
                 />
               </div>
-              <CardTitle>Add Contact Information</CardTitle>
-              <div className="flex justify-between">
-                <div className="flex flex-col space-y-1.5">
+              <CardTitle className="text-xl lg:text-3xl">Add Contact Information</CardTitle>
+              <div className="lg:flex lg:justify-between">
+                <div className="flex flex-col space-y-1.5 py-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
@@ -143,7 +144,7 @@ import { cn } from "@/lib/utils";
                     required
                   />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 py-2">
                   <Label htmlFor="phone">Phone Number</Label>
                   <Input
                     id="phone"
@@ -164,18 +165,18 @@ import { cn } from "@/lib/utils";
                     required
                 />
                 </div>
-              <CardTitle>Add Job Information</CardTitle>
-              <div className="flex justify-between">
+              <CardTitle className="text-xl lg:text-3xl">Add Job Information</CardTitle>
+              <div className="lg:flex lg:justify-between">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="types">Job Type</Label>
                   <JobTypes onSelectType={handleSelectType} />
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-1.5 py-2 lg:py-0">
                   <Label htmlFor="qualification">Qualification</Label>
                   <Qualification onSelectQualification={handleSelectQualification}/>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="lg:flex lg:justify-between">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="salary">Salary</Label>
                   <Input
@@ -232,6 +233,7 @@ import { cn } from "@/lib/utils";
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </div>
   );
 }
 

@@ -3,10 +3,12 @@ import axios from "axios";
 
 import { setTokenCookie, getTokenCookie, removeTokenCookie } from "./cookie";
 
-const BASE_URL = "https://rahman184.pythonanywhere.com/api";
+const BASE_URL = process.env.NEXT_PUBLIC_URL
+
 
 export const loginUser = async (username, password) => {
   try {
+    console.log(BASE_URL)
     const response = await axios.post(
       `${BASE_URL}/user/token/`,
       {

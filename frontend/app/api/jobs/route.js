@@ -1,7 +1,7 @@
+'use clinet'
 import axios from "axios";
 
-//const BASE_URL = "https://rahman184.pythonanywhere.com/api";
-const BASE_URL = "http://localhost:8000/api";
+let BASE_URL = process.env.NEXT_PUBLIC_URL
 
 
 export async function getJobs() {
