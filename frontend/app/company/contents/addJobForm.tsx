@@ -70,6 +70,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
       });
 
       if(response){
+        window.location.reload(); 
         toast({
           title: "Good News!",
           description: 'Job Added Successfully',
