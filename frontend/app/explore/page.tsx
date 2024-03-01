@@ -40,8 +40,8 @@ const Explore = () => {
   };
 
   return (
-    <div className="md:flex h-screen pt-11">
-      <div className="flex-1 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen mt-11">
+      <div className="overflow-y-auto p-4">
         <>
           {jobs.length === 0 ? (
             <p>No Job is currently registered.</p>
@@ -82,7 +82,7 @@ const Explore = () => {
           )}
         </>
       </div>
-      <div className="block md:flex-1 p-4">
+      <div className="sticky top-0 pt-11">
         <JobDetail jobId={selectedJobId} />
       </div>
     </div>

@@ -41,6 +41,7 @@ const AddCompanyPanel: React.FC<CompDetailProps> = ({ compId }) => {
       });
 
       if(response){
+        window.location.reload(); 
         toast({
           title: "Good News!",
           description: 'Company Added Successfully',
