@@ -42,18 +42,16 @@ const CompanyPage = () => {
     if (user && user.id) {
       fetchData(user.id);
     }
-  },);
+  },[isAuthenticated]);
 
   const fetchData = async (Uid: number) => {
     try {
-      console.log("Inside fetch data", Uid);
       const companyData: Company[] = await getCompany(Uid);
       if (companyData == null) {
         setIsCompany(false);
       } else {
         setCompany(companyData);
         setIsCompany(true);
-        console.log(companyData);
       }
     } catch (error) {
       console.error("Error fetching data:", error);

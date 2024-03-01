@@ -38,7 +38,7 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
     try {
       const jobData: Job = await getJobDetail(id);
       setJobDetail(jobData);
-      console.log(jobData);
+      // console.log(jobData);
     } catch (error) {
       console.error("Error fetching job detail:", error);
     }
