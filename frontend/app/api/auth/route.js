@@ -8,7 +8,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_URL
 
 export const loginUser = async (username, password) => {
   try {
-    console.log(BASE_URL)
     const response = await axios.post(
       `${BASE_URL}/user/token/`,
       {

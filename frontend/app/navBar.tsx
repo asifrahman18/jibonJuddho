@@ -7,22 +7,14 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { BsStars } from "react-icons/bs";
 import { ImOffice } from "react-icons/im";
 import { ModeToggle } from "./components/theme-toggle";
-import { EditProfile } from "./user/editProfile";
 
 import { useContext } from "react";
 
 import { AuthContext } from "@/context/AuthContext";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import UserAvatar from "./components/userAvatar";
 
 export default function Navbar() {
   const [state, setState] = React.useState(false);
@@ -39,8 +31,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-opacity/50 fixed top-0 z-10 w-full border-b pt-2 backdrop-blur-md md:border-0 px-4  lg:px-[270px]">
-      <div className="flex flex-row justify-between items-center  py-3 px-2">
+    <nav className="bg-opacity/50 fixed top-0 z-50 w-full border-b pt-2 backdrop-blur-md md:border-0 px-4 lg:px-[270px]">
+      <div className="flex flex-row justify-between items-center py-3 px-2">
         <Link href="/">
           <ImOffice size={30} />
         </Link>
@@ -81,31 +73,10 @@ export default function Navbar() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row gap-2">
           <div>
             {user && (
-              <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="px-2 hidden md:inline">
-                  <Avatar>
-                    <AvatarImage />
-                    <AvatarFallback>A</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel className="text-xl">
-                    {user.first_name}
-                  </DropdownMenuLabel>
-                  <DropdownMenuItem><Link href='/user'>Dashboard</Link></DropdownMenuItem>
-                  <DropdownMenuItem><EditProfile/></DropdownMenuItem>
-                  <DropdownMenuItem>{user.email}</DropdownMenuItem>
-                  <DropdownMenuLabel  onClick={logoutHandler}
-                      className="text-[#ff4545] hover:cursor-pointer">
-                      Sign Out
-                  </DropdownMenuLabel>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              </div>
+                <UserAvatar />
             )}
             {!isAuthenticated && (
               <Button>

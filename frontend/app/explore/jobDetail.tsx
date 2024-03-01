@@ -94,6 +94,10 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
                 {/* <TableCell>{jobDetail.email}</TableCell> */}
               </TableRow>
               <TableRow>
+              <TableHead>Phone</TableHead>
+              <TableCell>{jobDetail.phone}</TableCell>
+              </TableRow>
+              <TableRow>
               <TableHead>Salary</TableHead>
               <TableCell>{jobDetail.salary}</TableCell>
               </TableRow>

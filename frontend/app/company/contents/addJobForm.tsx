@@ -62,6 +62,7 @@ const AddJobs: React.FC<CompDetailProps> = ({ compId, compName }) => {
         description,
         email,
         location,
+        phone,
         openings,
         jobType: type,
         qualification,
