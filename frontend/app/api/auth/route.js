@@ -19,7 +19,7 @@ export const loginUser = async (username, password) => {
       }
     );
     const token = response.data.access;
-    console.log("token:", token);
+    // console.log("token:", token);
     setTokenCookie(token);
 
     return response.data;

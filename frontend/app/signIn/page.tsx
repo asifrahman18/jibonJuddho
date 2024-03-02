@@ -13,7 +13,7 @@ const signIn = () => {
         animate="show"
         initial="hidden"
         variants={fadeIn(0.5, 2)}
-        className="grid place-items-center min-h-screen px-4"
+        className="grid place-items-center min-h-screen px-4 mt-16"
       >
         <Tabs defaultValue="signIn" className="w-full lg:w-[400px]">
           <TabsList className="items-center flex">
