@@ -8,7 +8,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_URL
 
 export const loginUser = async (username, password) => {
   try {
-    console.log(BASE_URL)
     const response = await axios.post(
       `${BASE_URL}/user/token/`,
       {
@@ -20,7 +19,7 @@ export const loginUser = async (username, password) => {
       }
     );
     const token = response.data.access;
-    console.log("token:", token);
+    // console.log("token:", token);
     setTokenCookie(token);
 
     return response.data;

@@ -2,6 +2,7 @@ import moment from "moment";
 import Link from "next/link";
 import React, { useEffect, useState, useContext } from "react";
 import { getJobDetail } from "../api/jobs/route";
+import { getCompanyDetail } from "../api/company/route";
 import { AuthContext } from "@/context/AuthContext";
 
 import Job from '../models/job'
@@ -26,7 +27,7 @@ interface JobDetailProps {
 const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
   const [jobDetail, setJobDetail] = useState<Job | null>(null);
   const { isAuthenticated, user } = useContext(AuthContext);
-  const [companyDetail, setCompanyDetail] = useState<Job | null>(null);
+  const [companyDetail, setCompanyDetail] = useState('');
 
   useEffect(() => {
     if (jobId !== null) {
@@ -37,6 +38,9 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
   const fetchJobDetail = async (id: number) => {
     try {
       const jobData: Job = await getJobDetail(id);
+      const company = await getCompanyDetail(jobData.company)
+      
+      setCompanyDetail(company.name)
       setJobDetail(jobData);
       // console.log(jobData);
     } catch (error) {
@@ -57,6 +61,10 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
           <p className="py-5 text-2xl">Job Summary</p>
           {isAuthenticated && <Table>
             <TableHeader>
+            <TableRow>
+              <TableHead>Posted By</TableHead>
+              <TableCell>{companyDetail}</TableCell>
+              </TableRow>
               <TableRow>
                 <TableHead>Posted At</TableHead>
                 <TableCell>
@@ -82,6 +90,7 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
               )}
             </TableCell>
               </TableRow>
+
               <TableRow>
               <TableHead>Location</TableHead>
               <TableCell>{jobDetail.location}</TableCell>
@@ -92,6 +101,10 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
                 <Link href={`mailto:${jobDetail.email}?subject=${'Job Application'}&body=${'I want Job'}`}>{jobDetail.email}</Link>
                 </TableCell>
                 {/* <TableCell>{jobDetail.email}</TableCell> */}
+              </TableRow>
+              <TableRow>
+              <TableHead>Phone</TableHead>
+              <TableCell>{jobDetail.phone}</TableCell>
               </TableRow>
               <TableRow>
               <TableHead>Salary</TableHead>

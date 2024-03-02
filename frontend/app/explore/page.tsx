@@ -40,7 +40,7 @@ const Explore = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen mt-11">
+    <div className="grid grid-cols-1 md:grid-cols-2 max-h-screen mt-11">
       <div className="overflow-y-auto p-4">
         <>
           {jobs.length === 0 ? (

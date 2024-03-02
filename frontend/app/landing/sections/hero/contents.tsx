@@ -12,10 +12,10 @@ const Contents = () => {
       variants={slideIn("left", "tween", 0.2, 1)}
       className="mt-32"
     >
-      <h1 className="text-4xl md:text-5xl lg:text-5xl py-2">
+      <h1 className="text-3xl md:text-5xl lg:text-5xl py-2 font-bold">
         Your Gateway to Career Excellence
       </h1>
-      <h4 className="mt-2 w-full lg:w-[60%] text-lg">
+      <h4 className="mt-2 w-full lg:w-[60%] text-md">
         Step into a world of possibilities where career excellence is within
         reach. Discover exciting opportunities across the nation and propel your
         professional journey forward. Whether you seek jobs, internships, or

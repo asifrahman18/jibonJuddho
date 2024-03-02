@@ -68,7 +68,7 @@ const AddCompanyPanel: React.FC<CompDetailProps> = ({ compId }) => {
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="name" className="text-right text-sm">
               Name
             </Label>
             <Input id="name" className="col-span-3" onChange={(e) => setName(e.target.value)}/>

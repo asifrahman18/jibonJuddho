@@ -11,6 +11,7 @@ interface Job {
     company: string;
     expiresAt: string;
     createdAt: string;
+    phone: string;
 }
 
 export default Job;

@@ -67,7 +67,7 @@ const CompanyPage = () => {
     //console.log('Inside fetch hancleviewcliclviewjob:',companyID);
     setId(null);
     setJId(companyID);
-    console.log(Jid);
+    // console.log(Jid);
   }
 
   return (
@@ -78,7 +78,7 @@ const CompanyPage = () => {
           <div className="text-2xl font-bold mb-4">
             {isCompany && (
               <div>
-                <p className="mt-8 pb-2 text-3xl">Your Registered Company</p>
+                <p className="mt-8 pb-2 text-xl md:text-3xl">Your Registered Company</p>
                 <Accordion type="single" collapsible className="w-full">
                   {company.map((comp) => (
                     <AccordionItem
@@ -86,7 +86,7 @@ const CompanyPage = () => {
                       key={comp.id}
                       className="cursor-pointer"
                     >
-                      <AccordionTrigger className="p-2">
+                      <AccordionTrigger className="p-2 text-sm">
                         {comp.name}
                       </AccordionTrigger>
                       <AccordionContent className="p-2">

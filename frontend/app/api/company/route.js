@@ -30,12 +30,12 @@ export const getCompanyDetail = async (id) => {
 
 //company id
 export async function getCompanyJobs(id) {
-  console.log('Inside route',id);
+  // console.log('Inside route',id);
   try {
-    console.log('Inside try catch',id);
+    // console.log('Inside try catch',id);
     //const response = await axios.get(`${URL}/company/${id}/`);
     const response = await axios.get(`${URL}/company/job/${id}/`);
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

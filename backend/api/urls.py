@@ -58,7 +58,7 @@ urlpatterns = [
     path('company/<int:pk>/', UserCompaniesView.as_view(), name='user_companies'),
     
     
-    #view company details (need some attention: authorized users can see any company details)
+    #view company details
     path('user/company/<int:pk>/', CompanyDetailView.as_view(), name='view_company'),
     
     
