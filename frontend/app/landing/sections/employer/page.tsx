@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Contents from "./contents";
 import { useRef } from "react";

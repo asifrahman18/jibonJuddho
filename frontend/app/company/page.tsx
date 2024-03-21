@@ -34,13 +34,13 @@ const CompanyPage = () => {
         redirect("/signIn");
       }
     };
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user, loadUser]);
 
   useEffect(() => {
     if (user && user.id) {
       fetchData(user.id);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   const fetchData = async (Uid: number) => {
     try {

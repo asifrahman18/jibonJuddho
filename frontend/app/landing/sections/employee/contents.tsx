@@ -1,3 +1,4 @@
+'use client'
 import { HoverEffect } from "@/components/ui/animateHover";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
