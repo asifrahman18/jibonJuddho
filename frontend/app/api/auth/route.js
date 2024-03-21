@@ -3,8 +3,7 @@ import axios from "axios";
 
 import { setTokenCookie, getTokenCookie, removeTokenCookie } from "./cookie";
 
-const BASE_URL = process.env.NEXT_PUBLIC_URL
-
+const BASE_URL = process.env.NEXT_PUBLIC_URL;
 
 export const loginUser = async (username, password) => {
   try {
@@ -29,7 +28,6 @@ export const loginUser = async (username, password) => {
 };
 
 export const registerUser = async (firstName, lastName, username, password) => {
-
   try {
     const response = await axios.post(`${BASE_URL}/user/register/`, {
       first_name: firstName,
@@ -44,8 +42,6 @@ export const registerUser = async (firstName, lastName, username, password) => {
 };
 
 export async function logoutUser() {
- 
-
   return token;
 }
 

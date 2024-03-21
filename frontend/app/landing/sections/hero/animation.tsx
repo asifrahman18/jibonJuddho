@@ -2,10 +2,13 @@
 import React from "react";
 import Lottie from "lottie-react";
 import animationData from "../../../assets/animation2.json";
-import { motion } from "framer-motion";
 import { slideIn } from "@/lib/motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 function Test() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
   return (
     <motion.div
       animate="show"

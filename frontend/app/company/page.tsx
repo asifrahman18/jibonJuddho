@@ -3,7 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { redirect } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { getCompany } from "../api/company/route";
-import Company from '../models/company'
+import Company from "../models/company";
 
 import {
   Accordion,
@@ -27,22 +27,20 @@ const CompanyPage = () => {
   const [name, setName] = useState<string | null>(null);
 
   useEffect(() => {
-    
-    const findUser = async () =>{
-      await loadUser()
-      
+    const findUser = async () => {
+      await loadUser();
+
       if (!isAuthenticated && !user) {
         redirect("/signIn");
       }
-    }
-
-  },[isAuthenticated]);
+    };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (user && user.id) {
       fetchData(user.id);
     }
-  },[isAuthenticated]);
+  }, [isAuthenticated]);
 
   const fetchData = async (Uid: number) => {
     try {
@@ -68,17 +66,19 @@ const CompanyPage = () => {
     setId(null);
     setJId(companyID);
     // console.log(Jid);
-  }
+  };
 
   return (
     <div className="grid lg:grid-cols-2 lg:gap-2 pt-24 px-4 h-full xl:h-screen min-h-[100vh]">
       {isAuthenticated && (
         <div className=" p-4">
-          <AddCompanyPanel compId={user.id}/>
+          <AddCompanyPanel compId={user.id} />
           <div className="text-2xl font-bold mb-4">
             {isCompany && (
               <div>
-                <p className="mt-8 pb-2 text-xl md:text-3xl">Your Registered Company</p>
+                <p className="mt-8 pb-2 text-xl md:text-3xl">
+                  Your Registered Company
+                </p>
                 <Accordion type="single" collapsible className="w-full">
                   {company.map((comp) => (
                     <AccordionItem
@@ -109,7 +109,12 @@ const CompanyPage = () => {
                           >
                             Add Jobs
                           </Button>
-                          <Button variant="outline" onClick={() => handleViewClick(comp.id)}>View Jobs</Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => handleViewClick(comp.id)}
+                          >
+                            View Jobs
+                          </Button>
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -121,12 +126,20 @@ const CompanyPage = () => {
           </div>
         </div>
       )}
-      {id !== null && (
-        <div className="p-4">
-          <AddJobs compId={id} compName={name} />
+      {isAuthenticated && (
+        <div>
+          {id !== null && (
+            <div className="p-4">
+              <AddJobs compId={id} compName={name} />
+            </div>
+          )}
+          {Jid !== null && (
+            <div>
+              <ViewJobs compId={Jid} />
+            </div>
+          )}
         </div>
       )}
-      {Jid !== null && <div><ViewJobs compId={Jid}/></div>}
     </div>
   );
 };

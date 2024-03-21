@@ -86,7 +86,6 @@ export default function Navbar() {
               </Button>
             )}
           </div>
-          <ModeToggle />
           <div className="md:hidden">
             <button
               className="rounded-md p-2 text-gray-100 outline-none focus:border focus:border-gray-400"
