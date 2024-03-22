@@ -19,7 +19,7 @@ const HomePage = () => {
       }
     }
 
-  },[isAuthenticated]);
+  },[isAuthenticated, loadUser, user]);
 
   return (
     <div className="grid place-items-center min-h-screen text-3xl md:text-5xl lg:text-6xl">

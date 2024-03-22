@@ -30,7 +30,7 @@
     "cmdk": "^0.2.0",
     "cookie": "^0.6.0",
     "date-fns": "^3.3.1",
-    "framer-motion": "^10.17.9",
+    "framer-motion": "^10.18.0",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.304.0",
