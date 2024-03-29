@@ -21,6 +21,7 @@ const CompanyPage = () => {
   const Uid = user?.id;
   const [company, setCompany] = useState<Company[]>([]);
   const [isCompany, setIsCompany] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [id, setId] = useState<number | null>(null);
   const [Jid, setJId] = useState<number | null>(null);
@@ -38,6 +39,7 @@ const CompanyPage = () => {
 
   useEffect(() => {
     if (user && user.id) {
+      setIsLoading(true); 
       fetchData(user.id);
     }
   }, [isAuthenticated, user]);
@@ -53,6 +55,8 @@ const CompanyPage = () => {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false); 
     }
   };
   const handleAddClick = (companyID: number, companyName: string) => {
@@ -70,75 +74,81 @@ const CompanyPage = () => {
 
   return (
     <div className="grid lg:grid-cols-2 lg:gap-2 pt-24 px-4 h-full xl:h-screen min-h-[100vh]">
-      {isAuthenticated && (
-        <div className=" p-4">
-          <AddCompanyPanel compId={user.id} />
-          <div className="text-2xl font-bold mb-4">
-            {isCompany && (
-              <div>
-                <p className="mt-8 pb-2 text-xl md:text-3xl">
-                  Your Registered Company
-                </p>
-                <Accordion type="single" collapsible className="w-full">
-                  {company.map((comp) => (
-                    <AccordionItem
-                      value={comp.id.toString()}
-                      key={comp.id}
-                      className="cursor-pointer"
-                    >
-                      <AccordionTrigger className="p-2 text-sm">
-                        {comp.name}
-                      </AccordionTrigger>
-                      <AccordionContent className="p-2">
-                        Location: {comp.location}
-                      </AccordionContent>
-                      <AccordionContent className="p-2">
-                        Phone: {comp.phone}
-                      </AccordionContent>
-                      <AccordionContent className="p-2">
-                        Email: {comp.email}
-                      </AccordionContent>
-                      <AccordionContent className="p-2">
-                        Jobs:{" "}
-                      </AccordionContent>
-                      <AccordionContent className="p-2">
-                        <div className="flex gap-6">
-                          <Button
-                            variant="outline"
-                            onClick={() => handleAddClick(comp.id, comp.name)}
-                          >
-                            Add Jobs
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={() => handleViewClick(comp.id)}
-                          >
-                            View Jobs
-                          </Button>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+      {isLoading ? (
+        <div>Loading...</div> 
+      ) : (
+        <>
+          {isAuthenticated && (
+            <div className=" p-4">
+              <AddCompanyPanel compId={user.id} />
+              <div className="text-2xl font-bold mb-4">
+                {isCompany && (
+                  <div>
+                    <p className="mt-8 pb-2 text-xl md:text-3xl">
+                      Your Registered Company
+                    </p>
+                    <Accordion type="single" collapsible className="w-full">
+                      {company.map((comp) => (
+                        <AccordionItem
+                          value={comp.id.toString()}
+                          key={comp.id}
+                          className="cursor-pointer"
+                        >
+                          <AccordionTrigger className="p-2 text-sm">
+                            {comp.name}
+                          </AccordionTrigger>
+                          <AccordionContent className="p-2">
+                            Location: {comp.location}
+                          </AccordionContent>
+                          <AccordionContent className="p-2">
+                            Phone: {comp.phone}
+                          </AccordionContent>
+                          <AccordionContent className="p-2">
+                            Email: {comp.email}
+                          </AccordionContent>
+                          <AccordionContent className="p-2">
+                            Jobs:{" "}
+                          </AccordionContent>
+                          <AccordionContent className="p-2">
+                            <div className="flex gap-6">
+                              <Button
+                                variant="outline"
+                                onClick={() => handleAddClick(comp.id, comp.name)}
+                              >
+                                Add Jobs
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => handleViewClick(comp.id)}
+                              >
+                                View Jobs
+                              </Button>
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                )}
+                {!isCompany && <p>No Companies Registered</p>}
               </div>
-            )}
-            {!isCompany && <p>No Companies Registered</p>}
-          </div>
-        </div>
-      )}
-      {isAuthenticated && (
-        <div>
-          {id !== null && (
-            <div className="p-4">
-              <AddJobs compId={id} compName={name} />
             </div>
           )}
-          {Jid !== null && (
+          {isAuthenticated && (
             <div>
-              <ViewJobs compId={Jid} />
+              {id !== null && (
+                <div className="p-4">
+                  <AddJobs compId={id} compName={name} />
+                </div>
+              )}
+              {Jid !== null && (
+                <div>
+                  <ViewJobs compId={Jid} />
+                </div>
+              )}
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );

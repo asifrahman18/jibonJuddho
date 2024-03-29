@@ -13,7 +13,6 @@ const HomePage = () => {
     
     const findUser = async () =>{
       await loadUser()
-      
       if (!isAuthenticated && !user) {
         redirect("/signIn");
       }

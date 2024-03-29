@@ -1,6 +1,8 @@
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import {
   Card,
   CardContent,
@@ -20,17 +22,24 @@ const RegisterPage = () => {
   const [ConfPassword, setConfPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const { register, isLoading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
-  const { register } = useContext(AuthContext);
+  const { toast } = useToast()
 
   const handleRegister = async () => {
 
-    if(ConfPassword === password){
-      //console.log(firstName, lastName, username, password);
-      register(firstName, lastName, username, password);
-    }
-    else{
 
+    if (ConfPassword === password) {
+      setLoading(true);
+      await register(firstName, lastName, username, password);
+      setLoading(false);
+    } else {
+      toast({
+        title: "Passwords do not match ",
+        description: "Please try again",
+        variant: 'destructive',
+      })
     }
   };
 
@@ -92,13 +101,19 @@ const RegisterPage = () => {
         <Separator className="my-6" />
         <CardTitle>Or Register with</CardTitle>
         <div className="flex justify-between my-6">
-          <Button className="w-full" variant={"outline"}>
+          <Button className="w-full" variant={"outline"} disabled={true}>
             Google
           </Button>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button className="w-full" onClick={handleRegister}>Register</Button>
+        <Button
+          className="w-full"
+          onClick={handleRegister}
+          disabled={loading || isLoading}
+        >
+          {loading || isLoading ? "Please Wait..." : "Register"}
+        </Button>
       </CardFooter>
     </Card>
   );
