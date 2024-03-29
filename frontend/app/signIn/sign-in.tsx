@@ -1,27 +1,22 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { ReloadIcon } from "@radix-ui/react-icons"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-
 import { useContext, useState } from "react";
-
 import { AuthContext } from "../../context/AuthContext";
 
 const SignInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const { login } = useContext(AuthContext);
+  const { login, isLoading } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    setLoading(true);
     await login(username, password);
+    setLoading(false);
   };
 
   return (
@@ -57,14 +52,18 @@ const SignInPage = () => {
         <Separator className="my-6" />
         <CardTitle>Or Sign In with</CardTitle>
         <div className="flex justify-between my-6">
-          <Button className="w-full" variant={"outline"}>
+          <Button className="w-full" variant={"outline"} disabled={true}>
             Google
           </Button>
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" onClick={handleLogin}>
-          Sign In
+        <Button
+          className="w-full"
+          onClick={handleLogin}
+          disabled={loading || isLoading}
+        >
+          {loading || isLoading ? "Logging in..." : "Sign In"}
         </Button>
       </CardFooter>
     </Card>

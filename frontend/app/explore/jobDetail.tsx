@@ -28,6 +28,7 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
   const [jobDetail, setJobDetail] = useState<Job | null>(null);
   const { isAuthenticated, user } = useContext(AuthContext);
   const [companyDetail, setCompanyDetail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (jobId !== null) {
@@ -37,20 +38,25 @@ const JobDetail: React.FC<JobDetailProps> = ({ jobId }) => {
 
   const fetchJobDetail = async (id: number) => {
     try {
+      setLoading(true);
+
       const jobData: Job = await getJobDetail(id);
-      const company = await getCompanyDetail(jobData.company)
-      
-      setCompanyDetail(company.name)
+      const company = await getCompanyDetail(jobData.company);
+
+      setCompanyDetail(company.name);
       setJobDetail(jobData);
-      // console.log(jobData);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching job detail:", error);
+      setLoading(false);
     }
   };
 
   return (
     <div className="">
-      {jobDetail ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : jobDetail ? ( 
         <Card className="px-3 pt-3 dark:border-primary border-[#000000]">
           <div className="text-3xl md:text-6xl text-center">
             <h1>{jobDetail.title}</h1>
