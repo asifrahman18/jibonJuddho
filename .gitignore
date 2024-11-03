@@ -22,6 +22,17 @@ media
 # C extensions
 *.so
 
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+
 # Distribution / packaging
 .Python
 build/
